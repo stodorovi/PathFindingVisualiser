@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathFindingVisualiser", "PathFindingVisualiser\PathFindingVisualiser.vcxproj", "{6A5E9B50-C88A-4638-88F7-222AE71F8784}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathfindingAlgorithms", "PathfindingAlgorithms\PathfindingAlgorithms.vcxproj", "{7A599B08-90E0-4C24-B99C-38F7428EF6CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathfindingAlgorithmsTests", "PathfindingAlgorithmsTests\PathfindingAlgorithmsTests.vcxproj", "{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|ARM.ActiveCfg = Debug|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|x64.ActiveCfg = Debug|x64
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|x64.Build.0 = Debug|x64
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|x86.ActiveCfg = Debug|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Debug|x86.Build.0 = Debug|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|ARM.ActiveCfg = Release|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|ARM64.ActiveCfg = Release|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|x64.ActiveCfg = Release|x64
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|x64.Build.0 = Release|x64
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|x86.ActiveCfg = Release|Win32
+		{6A5E9B50-C88A-4638-88F7-222AE71F8784}.Release|x86.Build.0 = Release|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|ARM.ActiveCfg = Debug|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|x64.ActiveCfg = Debug|x64
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|x64.Build.0 = Debug|x64
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|x86.ActiveCfg = Debug|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Debug|x86.Build.0 = Debug|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|ARM.ActiveCfg = Release|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|ARM64.ActiveCfg = Release|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|x64.ActiveCfg = Release|x64
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|x64.Build.0 = Release|x64
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|x86.ActiveCfg = Release|Win32
+		{7A599B08-90E0-4C24-B99C-38F7428EF6CC}.Release|x86.Build.0 = Release|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|ARM.ActiveCfg = Debug|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|x64.ActiveCfg = Debug|x64
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|x64.Build.0 = Debug|x64
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|x86.ActiveCfg = Debug|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Debug|x86.Build.0 = Debug|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|ARM.ActiveCfg = Release|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|ARM64.ActiveCfg = Release|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|x64.ActiveCfg = Release|x64
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|x64.Build.0 = Release|x64
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|x86.ActiveCfg = Release|Win32
+		{669C1A73-1BAF-4A72-B69A-26A7FA48B24D}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E95B3233-8343-4DFC-A35D-F7F5789BFB56}
+	EndGlobalSection
+EndGlobal
