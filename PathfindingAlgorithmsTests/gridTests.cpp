@@ -32,7 +32,8 @@ TEST(GridNodeTests, CopyProcedingNode) {
     pathAlgs::GridNode *gridNodeTail = new pathAlgs::GridNode(gridNodeMain,
                                                               true);
 
-    ASSERT_NE(gridNodeTail->getPrecedingNode(), gridNodeMain);
+    ASSERT_NE(gridNodeTail->getPrecedingNode(),
+              gridNodeMain);
 
     AssertEquals(*gridNodeMain,
                  *gridNodeTail->getPrecedingNode());
@@ -79,7 +80,8 @@ TEST(GridNodeTests, GridNodeListAssignmentSameMemories) {
 
     for (int i = 0; i < gridNodeVector.size(); ++i) {
 
-        ASSERT_EQ(node, gridNodeVector[gridNodeVector.size() - 1 - i]);
+        ASSERT_EQ(node,
+                  gridNodeVector[gridNodeVector.size() - 1 - i]);
 
         node = node->getPrecedingNode();
 
@@ -116,7 +118,8 @@ TEST(GridNodeTests, GridNodeListCopyNotSameMemories) {
 
     for (int i = 0; i < gridNodeVector.size(); ++i) {
 
-        ASSERT_NE(node, gridNodeVector[gridNodeVector.size() - 1 - i]);
+        ASSERT_NE(node,
+                  gridNodeVector[gridNodeVector.size() - 1 - i]);
 
         node = node->getPrecedingNode();
 
@@ -163,6 +166,7 @@ TEST(GridNodeTests, GridNodeListsSameValues) {
     
     // same values on copy
     node = new pathAlgs::GridNode(*gridNodeVector.back());
+
     ASSERT_NE(node,
               gridNodeVector.back());
 
@@ -177,14 +181,13 @@ TEST(GridNodeTests, GridNodeListsSameValues) {
 }
 
 /**
-Asserts that the values of the node and the preceding nodes are the same,
-as are the depths of the nodes.
+ * @brief Asserts that the values of the node and the values of the preceding nodes are the same
 */
 static void AssertEquals(const pathAlgs::GridNode &actual,
                          const pathAlgs::GridNode &expected) {
 
     bool anyNull = &actual == nullptr
-                   || &expected == nullptr;
+                || &expected == nullptr;
 
     bool notEqual = &expected
                  != &actual;
