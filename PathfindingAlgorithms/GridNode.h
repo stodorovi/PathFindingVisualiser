@@ -1,7 +1,10 @@
 #ifndef GRIDNODE_H
 #define GRIDNODE_H
 
-#include "Types.h"
+#include <memory>
+#include <vector>
+
+#include "Point.h"
 
 namespace pathAlgs {
 
@@ -12,119 +15,104 @@ namespace pathAlgs {
 
     private:
 
-        /**
-         * @brief the node preceding this one.
-         */
-        GridNode *m_precedingNode;
+        /** @brief The node preceding this one. */
+        std::unique_ptr<GridNode> m_precedingNode;
 
-        /** 
-        * @brief This nodes point on the grid.
-        */
+        /** @brief This node's point on the grid. */
         Point m_point;
 
-        /**
-         * @brief Distance from the starting node.
-        */
+        /** @brief Distance from the starting node. */
         int m_distance;
 
     public:
 
-        /**
-         * @brief Empty constructor.
-        */
         GridNode();
 
         /**
          * @brief Constructor
          * 
-         * @param precedingNode - the node that is closest to this one.
+         * @param precedingNode - closest connected node to the start node.
          * @param point - the point of this node in the grid.
          * @param distanceFromPrecedingNode - distance from the preceding node.
         */
         GridNode(GridNode *precedingNode,
-                 bool copyContent,
-                 Point point = {-INT_MAX,
-                                -INT_MAX},
+                 Point point = Point{-INT_MAX,
+                                     -INT_MAX},
                  int distanceFromPrecedingNode = INT_MAX);
 
         /**
          * @brief Copy constructor.
-         * Copies every node down the line into a new object.
+         * Copies the values of the given node.
          * 
          * @param node - the node to copy contents from.
         */
         GridNode(const GridNode &node);
 
         /**
-         * @brief Move constructor.
-         * Moves existing node to self.
-         * 
-         * @param node - the node to move to self.
-        */
-        GridNode(GridNode &&node) noexcept;
-
-        /**
          * @brief Copy assignment operator.
-         * Copies every preceding node
+         * Copies the values of the given node.
          * 
          * @param node - the node to copy contents from.
         */
         void operator=(const GridNode &node);
 
         /**
-         * @brief Move asignment operator.
-         */
-        GridNode& operator=(GridNode &&node) noexcept;
-
-        ~GridNode();
-
-        /**
-         * @brief precedingNode getter
+         * @brief the precedingNode getter
+         * 
          * @return the procedingNode
         */
-        GridNode* getPrecedingNode() const;
+        std::unique_ptr<GridNode> getPrecedingNode() const;
+
+        GridNode* getPrecedingNodeRaw() const;
 
         /**
-         * @brief precedingNode setter - sets the existing pointer.
-         * @param the node to set.
+         * @brief preceeding node setter. Copies the given object.
+         * 
+         * @param the node to set
         */
-        void setPrecedingNode(GridNode *node);
-
-        /**
-         * @brief Copies the given node and its preceding nodes and their contents.
-         * @param the node to copy.
-        */
-        void copyPrecedingNode(const GridNode *node);
+        void setPrecedingNode(const std::unique_ptr<GridNode> &node);
 
         /**
          * @brief point getter.
+         * 
          * @return the point.
         */
         Point getPoint() const;
 
         /**
          * @brief point setter.
+         * 
          * @param the point to set.
         */
         void setPoint(Point point);
 
         /**
          * @brief distance getter.
+         * 
          * @return the distance to get.
         */
         int getDistance() const;
 
         /**
          * @brief distance setter.
+         * 
          * @param the distance to set.
         */
         void setDistance(int distance);
 
         /**
          * @brief The distance from self. Always 0.
+         * 
          * @return the distance from self.
         */
         int getDistanceFromSelf() const;
+
+        /**
+         * @brief The number of preceding nodes.
+         * 
+         * @return the depth of the node.
+        */
+        size_t getDepth() const;
 
     };
 

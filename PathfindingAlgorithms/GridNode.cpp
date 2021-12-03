@@ -2,27 +2,22 @@
 
 namespace pathAlgs {
 
-    GridNode::GridNode() : GridNode(nullptr,
-                                    false) {
-    }
+    GridNode::GridNode()
+        : GridNode(nullptr)
+    {}
 
     GridNode::GridNode(const GridNode& node)
-        :GridNode(nullptr,
-                  false) {
+        : GridNode(nullptr) {
 
-        *this = node;
+        if (&node != nullptr) {
 
-    }
+            *this = node;
 
-    GridNode::GridNode(GridNode &&node) noexcept
-        : m_precedingNode{nullptr} {
-
-        *this = std::move(node);
+        }
 
     }
 
     GridNode::GridNode(GridNode *precedingNode,
-                       bool copyContent,
                        Point point,
                        int distanceFromPrecedingNode)
         : m_precedingNode{nullptr},
@@ -31,109 +26,56 @@ namespace pathAlgs {
 
         if (precedingNode) {
 
-            copyContent ? copyPrecedingNode(precedingNode) : setPrecedingNode(precedingNode);
-
+            m_precedingNode = std::make_unique<GridNode>(precedingNode->getPrecedingNode().get());
+            
         }
 
     }
 
     void GridNode::operator=(const GridNode &node) {
-        
-        if (m_precedingNode) {
 
-            delete m_precedingNode;
-
-        }
-
+        m_point = node.getPoint();
+        m_distance = node.getDistance();
         setPrecedingNode(node.getPrecedingNode());
-        m_point = node.getPoint();
-        m_distance = node.getDistance();
 
     }
 
-    GridNode& GridNode::operator=(GridNode &&node) noexcept {
+    std::unique_ptr<GridNode> GridNode::getPrecedingNode() const {
 
-        if (m_precedingNode) {
+        if (!m_precedingNode) {
 
-            delete m_precedingNode;
+            return nullptr;
 
         }
 
-        copyPrecedingNode(&node);
-        m_point = node.getPoint();
-        m_distance = node.getDistance();
-
-        delete node.m_precedingNode;
-
-        return *this;
+        return std::make_unique<GridNode>(*m_precedingNode);
 
     }
 
-    GridNode::~GridNode() {
+    GridNode *GridNode::getPrecedingNodeRaw() const {
 
-        if (m_precedingNode) {
+        return m_precedingNode.get();
 
-            delete m_precedingNode;
-            m_precedingNode = nullptr;
+    }
+
+    void GridNode::setPrecedingNode(const std::unique_ptr<GridNode> &node) {
+
+        if (node == nullptr) {
+
+            m_precedingNode.reset();
+
+            return;
 
         }
 
-    }
+        if (!m_precedingNode) {
 
-    GridNode* GridNode::getPrecedingNode() const {
-
-        return m_precedingNode;
-
-    }
-
-    void GridNode::setPrecedingNode(GridNode *node) {
-
-        if (m_precedingNode) {
-
-            delete m_precedingNode;
+            m_precedingNode.reset(new GridNode());
+            *m_precedingNode = *node;
 
         }
 
-        m_precedingNode = node;
-
-    }
-
-    void GridNode::copyPrecedingNode(const GridNode *node) {
-
-        if (node) {
-
-            if (m_precedingNode) {
-
-                delete m_precedingNode;
-
-            }
-
-            m_precedingNode = new GridNode();
-            m_precedingNode->setDistance(node->m_distance);
-            m_precedingNode->setPoint(node->m_point);
-            
-            GridNode *thisNodeInLine = m_precedingNode;
-            GridNode *otherNodeInLine = node->getPrecedingNode();
-
-            while (otherNodeInLine && thisNodeInLine) {
-
-                thisNodeInLine->copyPrecedingNode(otherNodeInLine);
-                otherNodeInLine = otherNodeInLine->getPrecedingNode();
-                thisNodeInLine = thisNodeInLine->getPrecedingNode();
-
-            }
-
-        } else {
-
-            if (m_precedingNode) {
-
-                delete m_precedingNode;
-
-            }
-
-            m_precedingNode = nullptr;
-
-        }
+        *m_precedingNode = *node;
 
     }
 
@@ -164,6 +106,22 @@ namespace pathAlgs {
     int GridNode::getDistanceFromSelf() const {
 
         return 0;
+
+    }
+
+    size_t GridNode::getDepth() const {
+
+        size_t depth = 0;
+
+        GridNode *nodePtr = m_precedingNode.get();
+        while (nodePtr != nullptr) {
+
+            depth++;
+            nodePtr = nodePtr->getPrecedingNodeRaw();
+
+        }
+
+        return depth;
 
     }
 

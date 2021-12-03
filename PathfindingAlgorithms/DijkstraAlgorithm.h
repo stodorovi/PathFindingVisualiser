@@ -1,16 +1,20 @@
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
-#include "Types.h"
-#include "GridNode.h"
-
 #include <list>
+#include <map>
+#include <deque>
+
+#include "GridNode.h"
+#include "GridUtil.h"
+#include "Point.h"
 
 namespace pathAlgs {
 
-    int findPathDijkstra(Grid grid,
-                         Point startingPoint,
-                         Point endPoint);
+    const GridNode findPathDijkstra(GridNode &node,
+                                    Grid grid,
+                                    Point startingPoint,
+                                    Point endPoint);
 
 }
 
