@@ -2,6 +2,7 @@
 #define MAINAPP_H
 
 #include "wx/wx.h"
+
 #include "MainFrame.h"
 
 class MainApp : public wxApp {
