@@ -1,62 +1,47 @@
 #include "NodeTypeButtonSelectionSelectableProcessor.h"
 #include "MainFrame.h"
 
-const std::map<const int, PlaceableNodeType> NodeTypeButtonSelectionSelectableProcessor::NODE_TYPES_BY_ID = {
-
-    std::make_pair(START_NODE_BTN_ID,
-                   PlaceableNodeType::START),
-    std::make_pair(END_NODE_BTN_ID,
-                   PlaceableNodeType::END),
-    std::make_pair(BLOCK_NODE_BTN_ID,
-                   PlaceableNodeType::BLOCK)
-
-};
-
-const int NodeTypeButtonSelectionSelectableProcessor::NODE_TYPE_BTN_IDS[NODE_TYPE_BTN_SIZE] = {
-
-    START_NODE_BTN_ID,
-    END_NODE_BTN_ID,
-    BLOCK_NODE_BTN_ID
-
-};
-
 NodeTypeButtonSelectionSelectableProcessor::NodeTypeButtonSelectionSelectableProcessor(int id,
                                                                                        MainFrame * const mainFrame)
     : m_id{id},
-      m_mainFrame{mainFrame} {
+      m_mainFrame{mainFrame},
+      m_idNodeTypeMap{
+
+          {m_mainFrame->getView().getStartNodeBtn()->GetId(), PlaceableNodeType::START},
+          {m_mainFrame->getView().getEndNodeBtn()->GetId(), PlaceableNodeType::END},
+          {m_mainFrame->getView().getBlockNodeBtn()->GetId(), PlaceableNodeType::BLOCK}
+
+      } {
 }
 
 void NodeTypeButtonSelectionSelectableProcessor::process() {
 
     if (matches()) {
 
-        onMatch();
+        setCurrentNodeTypeAndToggleButtons();
 
     }
+
 }
 
-void NodeTypeButtonSelectionSelectableProcessor::onMatch() {
+void NodeTypeButtonSelectionSelectableProcessor::setCurrentNodeTypeAndToggleButtons() {
 
-    PlaceableNodeType &placeableNodeType = m_mainFrame->getCurrentPlaceableNodeType();
+    PlaceableNodeType &placeableNodeType = m_mainFrame->getView().getCurrentNodeType();
 
-    wxToolBar *toolbar = m_mainFrame->GetToolBar();
-
-    if (placeableNodeType == NODE_TYPES_BY_ID.at(m_id)) {
+    wxToolBar *toolbar = m_mainFrame->getView().getToolBar();
+    
+    if (placeableNodeType == m_idNodeTypeMap.at(m_id)) {
 
         placeableNodeType = PlaceableNodeType::NONE;
 
     } else {
 
-        placeableNodeType = NODE_TYPES_BY_ID.at(m_id);
+        placeableNodeType = m_idNodeTypeMap.at(m_id);
 
-        for (int i = 0; i < NODE_TYPE_BTN_SIZE; ++i) {
+        for (IdNodeTypeMap::const_iterator it = m_idNodeTypeMap.begin(); it != m_idNodeTypeMap.end(); ++it) {
 
-            if (m_id != NODE_TYPE_BTN_IDS[i]) {
-
-                toolbar->ToggleTool(NODE_TYPE_BTN_IDS[i],
-                                    false);
-
-            }
+            toolbar->ToggleTool(it->first,
+                                m_id == it->first);
 
         }
 

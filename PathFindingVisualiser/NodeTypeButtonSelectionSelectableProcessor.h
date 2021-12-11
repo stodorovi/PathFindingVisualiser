@@ -14,14 +14,12 @@ class NodeTypeButtonSelectionSelectableProcessor {
 
 protected:
 
-    static constexpr int const NODE_TYPE_BTN_SIZE = 3;
-    static const int NODE_TYPE_BTN_IDS[NODE_TYPE_BTN_SIZE];
+    MainFrame * const m_mainFrame;
 
-    static const std::map<const int, PlaceableNodeType> NODE_TYPES_BY_ID;
+    using IdNodeTypeMap = std::map<const int, PlaceableNodeType>;
+    const IdNodeTypeMap m_idNodeTypeMap;
 
     const int m_id;
-
-    MainFrame * const m_mainFrame;
 
 public:
 
@@ -44,11 +42,9 @@ public:
     /** @brief Process the button check. */
     virtual void process();
 
-    /** @brief Sets the button's & child frame's node type. */
-    virtual void onMatch();
+    /** @brief Sets the current placeable node type & toggles the buttons. */
+    virtual void setCurrentNodeTypeAndToggleButtons();
 
 };
 
-
 #endif // !NODE_TYPE_BTN_SELECTION_SELECTABLE_PROCESSOR_H
-
