@@ -4,28 +4,42 @@
 #include "wx/mdi.h"
 
 #include "GridFrame.h"
-#include "PathfindingAppConstants.h"
+#include "MainFrameConstants.h"
+#include "MainFrameView.h"
+#include "NodeTypeButtonSelectionProcessor.h"
+#include "PlaceableNodeType.h"
 
 class MainFrame : public wxMDIParentFrame {
 
 private:
 
-	wxMenuBar *m_menuBar;
+	PlaceableNodeType  m_currentNodeType;
 
-	wxToolBar *toolBar;
-
-	void initMenuBar();
+	MainFrameView m_view;
 
 	void onMenuNew(wxCommandEvent &event);
 
 	void onMenuExit(wxCommandEvent &event);
+
+	void onRunAlgorithmBtnSelected(wxCommandEvent &event);
+
+	void onNodeBtnSelected(wxCommandEvent &event);
+
+	void onChildWindowFocusChange(wxChildFocusEvent &event);
+
+	void onClearGridBtnSelected(wxCommandEvent &event);
 
 	void BindEvents();
 
 public:
 
 	MainFrame();
+
 	~MainFrame();
+
+	PlaceableNodeType& getCurrentNodeType();
+
+	MainFrameView& getView();
 
 };
 

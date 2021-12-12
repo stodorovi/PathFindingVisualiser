@@ -1,4 +1,5 @@
 #include "StartNodeTypeButtonProcessor.h"
+#include "MainFrameView.h"
 
 StartNodeTypeButtonProcessor::StartNodeTypeButtonProcessor(int id,
                                                            MainFrame * const mainFrame)
@@ -8,6 +9,6 @@ StartNodeTypeButtonProcessor::StartNodeTypeButtonProcessor(int id,
 
 bool StartNodeTypeButtonProcessor::matches() {
 
-    return m_id == START_NODE_BTN_ID;
+    return m_id == MainFrameViewConstants::START_NODE_ID;
 
 }

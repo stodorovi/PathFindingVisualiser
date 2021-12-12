@@ -4,7 +4,6 @@
 #include <map>
 
 #include "PlaceableNodeType.h"
-#include "PathfindingAppConstants.h"
 
 /** forward declaration - circular dependancy */
 class MainFrame;
@@ -20,6 +19,9 @@ protected:
     const IdNodeTypeMap m_idNodeTypeMap;
 
     const int m_id;
+
+    /** @brief Sets the current placeable node type & toggles the buttons. */
+    virtual void setCurrentNodeTypeAndToggleButtons();
 
 public:
 
@@ -41,9 +43,6 @@ public:
 
     /** @brief Process the button check. */
     virtual void process();
-
-    /** @brief Sets the current placeable node type & toggles the buttons. */
-    virtual void setCurrentNodeTypeAndToggleButtons();
 
 };
 

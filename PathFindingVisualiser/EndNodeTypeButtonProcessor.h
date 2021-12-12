@@ -1,6 +1,7 @@
 #ifndef END_NODE_TYPE_BTN_PROCESSOR
 #define END_NODE_TYPE_BTN_PROCESSOR
 
+#include "MainFrameViewConstants.h"
 #include "NodeTypeButtonSelectionSelectableProcessor.h"
 
 /** @brief Processor for the end node type. */

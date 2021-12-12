@@ -8,8 +8,9 @@ NodeTypeButtonSelectionSelectableProcessor::NodeTypeButtonSelectionSelectablePro
       m_idNodeTypeMap{
 
           {m_mainFrame->getView().getStartNodeBtn()->GetId(), PlaceableNodeType::START},
-          {m_mainFrame->getView().getEndNodeBtn()->GetId(), PlaceableNodeType::END},
-          {m_mainFrame->getView().getBlockNodeBtn()->GetId(), PlaceableNodeType::BLOCK}
+          {m_mainFrame->getView().getEndNodeBtn()->GetId(),   PlaceableNodeType::END},
+          {m_mainFrame->getView().getBlockNodeBtn()->GetId(), PlaceableNodeType::BLOCK},
+          {m_mainFrame->getView().getEraseNodeBtn()->GetId(), PlaceableNodeType::ERASE}
 
       } {
 }
@@ -26,7 +27,7 @@ void NodeTypeButtonSelectionSelectableProcessor::process() {
 
 void NodeTypeButtonSelectionSelectableProcessor::setCurrentNodeTypeAndToggleButtons() {
 
-    PlaceableNodeType &placeableNodeType = m_mainFrame->getView().getCurrentNodeType();
+    PlaceableNodeType &placeableNodeType = m_mainFrame->getCurrentNodeType();
 
     wxToolBar *toolbar = m_mainFrame->getView().getToolBar();
     
@@ -51,7 +52,7 @@ void NodeTypeButtonSelectionSelectableProcessor::setCurrentNodeTypeAndToggleButt
 
     if (activeChild) {
 
-        activeChild->setCurrentNodeType(placeableNodeType);
+        activeChild->getView().setCurrentNodeType(placeableNodeType);
 
     }
 

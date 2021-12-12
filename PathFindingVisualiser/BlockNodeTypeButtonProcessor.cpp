@@ -8,6 +8,6 @@ BlockNodeTypeButtonProcessor::BlockNodeTypeButtonProcessor(int id,
 
 bool BlockNodeTypeButtonProcessor::matches() {
 
-    return m_id == BLOCK_NODE_BTN_ID;
+    return m_id == MainFrameViewConstants::BLOCK_NODE_ID;
 
 }

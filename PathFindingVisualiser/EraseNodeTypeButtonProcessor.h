@@ -1,11 +1,11 @@
-#ifndef START_NODE_TYPE_BTN_PROCESSOR
-#define START_NODE_TYPE_BTN_PROCESSOR
+#ifndef ERASE_NODE_TYPE_BTN_PROCESSOR
+#define ERASE_NODE_TYPE_BTN_PROCESSOR
 
 #include "MainFrameViewConstants.h"
 #include "NodeTypeButtonSelectionSelectableProcessor.h"
 
-/** @brief Processor for the start node type. */
-class StartNodeTypeButtonProcessor : public NodeTypeButtonSelectionSelectableProcessor {
+/** @brief Processor for the node erasing type. */
+class EraseNodeTypeButtonProcessor : public NodeTypeButtonSelectionSelectableProcessor {
 
 public:
 
@@ -14,12 +14,11 @@ public:
     * @param id - id of the button
     * @param mainFrame - main frame to process event for
     */
-    StartNodeTypeButtonProcessor(int id,
+    EraseNodeTypeButtonProcessor(int id,
                                  MainFrame * const mainFrame);
 
     virtual bool matches() override;
 
 };
 
-#endif // !START_NODE_TYPE_BTN_PROCESSOR
-
+#endif // !ERASE_NODE_TYPE_BTN_PROCESSOR

@@ -9,6 +9,7 @@
 
 #include "BlockNodeTypeButtonProcessor.h"
 #include "EndNodeTypeButtonProcessor.h"
+#include "EraseNodeTypeButtonProcessor.h"
 #include "StartNodeTypeButtonProcessor.h"
 
 /** forward declaration - circular dependancy */

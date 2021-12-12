@@ -9,6 +9,8 @@ NodeTypeButtonSelectionProcessor::NodeTypeButtonSelectionProcessor(int id,
                                                                             mainFrame));
         m_processors.push_back(std::make_unique<BlockNodeTypeButtonProcessor>(id,
                                                                               mainFrame));
+        m_processors.push_back(std::make_unique<EraseNodeTypeButtonProcessor>(id,
+                                                                              mainFrame));
 
 
 

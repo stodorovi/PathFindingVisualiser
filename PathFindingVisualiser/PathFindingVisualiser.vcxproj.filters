@@ -13,16 +13,91 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\grid">
+      <UniqueIdentifier>{0212e270-f707-474f-a983-ccfb100c2ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\grid">
+      <UniqueIdentifier>{1802077a-b28b-4ed6-9eae-7f4077c33205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\main">
+      <UniqueIdentifier>{e19aaedb-d849-4221-a0ec-34f5f0b4cc2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\main\processor">
+      <UniqueIdentifier>{1ab24d94-4236-430e-a6fc-a3616d5f9b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\main">
+      <UniqueIdentifier>{cc50587f-cd11-4083-b549-dbc0d9a40b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\main\processor">
+      <UniqueIdentifier>{2723c6e8-e56b-46bb-9006-5b257cd2fad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\main\constants">
+      <UniqueIdentifier>{67f0f0ed-3b3b-4e4e-98d9-abbcf4702eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\grid\constants">
+      <UniqueIdentifier>{4f4f0287-4a92-40c0-85a5-17486b9c3c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\grid\processor">
+      <UniqueIdentifier>{648832c0-6dac-4d6c-9677-5b5a398bce9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\grid\processor">
+      <UniqueIdentifier>{02254eff-d3d0-477f-9ee2-2b2b8a612794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTypeButtonSelectionProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTypeButtonSelectionSelectableProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="StartNodeTypeButtonProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="EndNodeTypeButtonProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockNodeTypeButtonProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
     </ClCompile>
     <ClCompile Include="GridFrame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\grid</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrameView.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="GridFrameView.cpp">
+      <Filter>Source Files\grid</Filter>
+    </ClCompile>
+    <ClCompile Include="EraseNodeTypeButtonProcessor.cpp">
+      <Filter>Source Files\main\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTypeSetCellSelectableProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockNodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="EraseNodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="StartNodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="EndNodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleCellNodeTypeSetCellProcessor.cpp">
+      <Filter>Source Files\grid\processor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -30,13 +105,70 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\main</Filter>
     </ClInclude>
-    <ClInclude Include="PathfindingAppConstants.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlaceableNodeType.h">
+      <Filter>Header Files\main</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockNodeTypeButtonProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="EndNodeTypeButtonProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTypeButtonSelectionProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTypeButtonSelectionSelectableProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="StartNodeTypeButtonProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
     </ClInclude>
     <ClInclude Include="GridFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\grid</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrameView.h">
+      <Filter>Header Files\main</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrameConstants.h">
+      <Filter>Header Files\main\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrameViewConstants.h">
+      <Filter>Header Files\main\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFrameView.h">
+      <Filter>Header Files\grid</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFrameViewConstants.h">
+      <Filter>Header Files\grid\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="EraseNodeTypeButtonProcessor.h">
+      <Filter>Header Files\main\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTypeSetCellSelectableProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockNodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="EraseNodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="StartNodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="EndNodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleCellNodeTypeSetCellProcessor.h">
+      <Filter>Header Files\grid\processor</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFrameConstants.h">
+      <Filter>Header Files\grid\constants</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,6 @@ EndNodeTypeButtonProcessor::EndNodeTypeButtonProcessor(int id,
 
 bool EndNodeTypeButtonProcessor::matches() {
 
-    return m_id == END_NODE_BTN_ID;
+    return m_id == MainFrameViewConstants::END_NODE_ID;
 
 }

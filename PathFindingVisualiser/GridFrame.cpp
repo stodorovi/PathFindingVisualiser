@@ -3,17 +3,9 @@
 GridFrame::GridFrame(wxMDIParentFrame *parent,
                      const wxString &title)
     : wxMDIChildFrame(parent,
-                      GRID_FRAME_ID,
-                      title) {
-
-    m_mainPanel = new wxPanel(this);
-    m_mainSizer = new wxBoxSizer(wxHORIZONTAL);
-
-    initGrid();
-
-    m_mainPanel->SetSizer(m_mainSizer);
-
-    initStatusBar();
+                      GridFrameConstants::GRID_FRAME_ID,
+                      title),
+      m_view{this} {
 
     BindEvents();
 
@@ -22,107 +14,60 @@ GridFrame::GridFrame(wxMDIParentFrame *parent,
 GridFrame::~GridFrame() {
 }
 
-void GridFrame::initGrid() {
+void GridFrame::clearGrid() {
 
-    m_grid = new wxGrid(m_mainPanel,
-                        GRID_ID);
+    wxGrid *grid = m_view.getGrid();
 
-    m_grid->CreateGrid(GRID_ROWS,
-                       GRID_COLS);
+    for (int col = 0; col < GridFrameViewConstants::GRID_COLS; ++col) {
 
-    m_grid->SetGridLineColour(GRID_LINE_COLOUR);
+        for (int row = 0; row < GridFrameViewConstants::GRID_ROWS; ++row) {
 
-    m_grid->HideRowLabels();
-    m_grid->HideColLabels();
-
-    m_grid->SetColMinimalAcceptableWidth(GRID_CELL_MIN_SIZE);
-    m_grid->SetRowMinimalAcceptableHeight(GRID_CELL_MIN_SIZE);
-
-    m_grid->EnableEditing(false);
-
-    m_grid->EnableDragRowSize(false);
-    m_grid->EnableDragColSize(false);
-
-    m_grid->DisableCellEditControl();
-
-    SetupCellsSize(GRID_CELL_MIN_SIZE);
-
-    m_mainSizer->Add(m_grid,
-                     1,
-                      wxEXPAND | wxALL);
-
-}
-
-void GridFrame::SetupCellsSize(int size) {
-
-    for (int row = 0; row < GRID_COLS; ++row) {
-
-        if (row < GRID_ROWS) {
-
-            m_grid->SetRowSize(row,
-                               size);
+            grid->SetCellBackgroundColour(row,
+                                          col,
+                                          GridFrameViewConstants::DEFAULT_CELL_COLOUR);
 
         }
 
-        m_grid->SetColSize(row,
-                           size);
-
     }
 
-    m_grid->Refresh();
+    grid->Refresh();
 
-}
+    wxMessageBox(GridFrameViewConstants::ON_GRID_CLEARED_MSG,
+                 GridFrameViewConstants::ON_GRID_CLEARED_TITLE,
+                 wxOK | wxICON_INFORMATION);
 
-void GridFrame::initStatusBar() {
-
-    m_statusBar = CreateStatusBar();
-
-    m_footerSizer = new wxBoxSizer(wxVERTICAL);
-
-    m_zoomSlider = new wxSlider(m_statusBar,
-                                SLIDER_ID,
-                                SLIDER_MIN_VALUE,
-                                SLIDER_MIN_VALUE,
-                                SLIDER_MAX_VALUE);
-
-    m_statusBarSizer = new wxBoxSizer(wxHORIZONTAL);
-
-    m_zoomText = new wxStaticText(m_statusBar,
-                                  -1,
-                                  ZOOM_TEXT);
-    m_statusBarSizer->Add(m_zoomText,
-                          0,
-                          wxALIGN_CENTER_VERTICAL);
-    m_statusBarSizer->Add(m_zoomSlider,
-                          0);
-    m_statusBarSizer->Layout();
-
-    m_footerSizer->Add(m_statusBarSizer,
-                       0,
-                       wxALIGN_RIGHT);
-    m_statusBar->SetSizer(m_footerSizer);
-    m_statusBar->SendSizeEvent();
-    m_footerSizer->Layout();
+    m_view.setPreviousStartPoint(GridFrameViewConstants::INVALID_CELL_POSITION);
+    m_view.setPreviousEndPoint(GridFrameViewConstants::INVALID_CELL_POSITION);
 
 }
 
 void GridFrame::BindEvents() {
 
-    m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK,
-                 &GridFrame::OnCellSelected,
-                 this);
+    wxGrid *grid = m_view.getGrid();
 
-    m_grid->Bind(wxEVT_GRID_RANGE_SELECT,
-                 &GridFrame::UnselectAllCells,
-                 this);
+    grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK,
+               &GridFrame::OnCellSelected,
+               this);
 
-    m_zoomSlider->Bind(wxEVT_SLIDER,
-                       &GridFrame::OnSliderChange,
-                       this);
+    grid->Bind(wxEVT_GRID_RANGE_SELECT,
+               &GridFrame::UnselectAllCells,
+               this);
+
+    m_view.getSlider()->Bind(wxEVT_SLIDER,
+                             &GridFrame::OnSliderChange,
+                             this);
 
 }
 
 void GridFrame::OnCellSelected(wxGridEvent &event) {
+
+    const int col = event.GetCol();
+    const int row = event.GetRow();
+
+    m_view.setCell(row,
+                   col);
+
+    event.Skip();
 
 }
 
@@ -130,7 +75,7 @@ void GridFrame::UnselectAllCells(wxGridRangeSelectEvent &event) {
 
     if (event.Selecting()) {
 
-        m_grid->ClearSelection();
+        m_view.getGrid()->ClearSelection();
 
         event.Skip();
 
@@ -142,16 +87,22 @@ void GridFrame::OnSliderChange(wxCommandEvent &event) {
 
     int sliderValue = static_cast<wxSlider *>(event.GetEventObject())->GetValue();
 
-    int cellSize = GRID_CELL_MIN_SIZE;
+    int cellSize = GridFrameViewConstants::GRID_CELL_MIN_SIZE;
 
     if (sliderValue != 0) {
 
         cellSize = cellSize
                  + static_cast<int>((sliderValue / 100.0)
-                                  * cellSize);
+                                   * cellSize);
 
     }
 
-    SetupCellsSize(cellSize);
+    m_view.SetCellsSize(cellSize);
+
+}
+
+GridFrameView &GridFrame::getView() {
+
+    return m_view;
 
 }

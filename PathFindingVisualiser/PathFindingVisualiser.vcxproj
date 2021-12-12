@@ -19,15 +19,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockNodeTypeButtonProcessor.cpp" />
+    <ClCompile Include="EndNodeTypeButtonProcessor.cpp" />
+    <ClCompile Include="EndNodeTypeSetCellProcessor.cpp" />
+    <ClCompile Include="EraseNodeTypeButtonProcessor.cpp" />
+    <ClCompile Include="EraseNodeTypeSetCellProcessor.cpp" />
     <ClCompile Include="GridFrame.cpp" />
+    <ClCompile Include="GridFrameView.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="MainFrameView.cpp" />
+    <ClCompile Include="NodeTypeButtonSelectionProcessor.cpp" />
+    <ClCompile Include="NodeTypeButtonSelectionSelectableProcessor.cpp" />
+    <ClCompile Include="NodeTypeSetCellProcessor.cpp" />
+    <ClCompile Include="NodeTypeSetCellSelectableProcessor.cpp" />
+    <ClCompile Include="BlockNodeTypeSetCellProcessor.cpp" />
+    <ClCompile Include="SingleCellNodeTypeSetCellProcessor.cpp" />
+    <ClCompile Include="StartNodeTypeButtonProcessor.cpp" />
+    <ClCompile Include="StartNodeTypeSetCellProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockNodeTypeButtonProcessor.h" />
+    <ClInclude Include="EndNodeTypeButtonProcessor.h" />
+    <ClInclude Include="EndNodeTypeSetCellProcessor.h" />
+    <ClInclude Include="EraseNodeTypeButtonProcessor.h" />
+    <ClInclude Include="EraseNodeTypeSetCellProcessor.h" />
     <ClInclude Include="GridFrame.h" />
+    <ClInclude Include="GridFrameConstants.h" />
+    <ClInclude Include="GridFrameView.h" />
+    <ClInclude Include="GridFrameViewConstants.h" />
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="MainFrame.h" />
-    <ClInclude Include="PathfindingAppConstants.h" />
+    <ClInclude Include="MainFrameConstants.h" />
+    <ClInclude Include="MainFrameView.h" />
+    <ClInclude Include="MainFrameViewConstants.h" />
+    <ClInclude Include="NodeTypeButtonSelectionProcessor.h" />
+    <ClInclude Include="NodeTypeButtonSelectionSelectableProcessor.h" />
+    <ClInclude Include="BlockNodeTypeSetCellProcessor.h" />
+    <ClInclude Include="NodeTypeSetCellProcessor.h" />
+    <ClInclude Include="PlaceableNodeType.h" />
+    <ClInclude Include="NodeTypeSetCellSelectableProcessor.h" />
+    <ClInclude Include="SingleCellNodeTypeSetCellProcessor.h" />
+    <ClInclude Include="StartNodeTypeButtonProcessor.h" />
+    <ClInclude Include="StartNodeTypeSetCellProcessor.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -97,7 +131,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(WXWIN)\include; $(WXWIN)\include\msvc</AdditionalIncludeDirectories>
     </ClCompile>
@@ -113,7 +147,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(WXWIN)\include; $(WXWIN)\include\msvc</AdditionalIncludeDirectories>
     </ClCompile>
