@@ -85,6 +85,43 @@ void GridFrameView::initStatusBar() {
 
 }
 
+void GridFrameView::clearGrid() {
+
+    for (int col = 0; col < GridFrameViewConstants::GRID_COLS; ++col) {
+
+        for (int row = 0; row < GridFrameViewConstants::GRID_ROWS; ++row) {
+
+            m_grid->SetCellBackgroundColour(row,
+                                            col,
+                                            GridFrameViewConstants::DEFAULT_CELL_COLOUR);
+
+        }
+
+    }
+
+    m_grid->Refresh();
+
+}
+
+int GridFrameView::showClearGridConfirmationDialog() {
+
+    wxMessageDialog *confirmCleanGridDialog = new wxMessageDialog(m_gridFrame,
+                                                                  GridFrameViewConstants::CLEAR_GRID_MSG,
+                                                                  GridFrameViewConstants::CLEAR_GRID_TITLE,
+                                                                  wxYES_NO | wxNO_DEFAULT | wxICON_WARNING);
+
+    return confirmCleanGridDialog->ShowModal();;
+
+}
+
+void GridFrameView::showGridClearedSuccessMessage() {
+
+    wxMessageBox(GridFrameViewConstants::ON_GRID_CLEARED_MSG,
+                 GridFrameViewConstants::ON_GRID_CLEARED_TITLE,
+                 wxOK | wxICON_INFORMATION);
+
+}
+
 void GridFrameView::setCurrentNodeType(PlaceableNodeType nodeType) {
 
     m_currentNodeType = nodeType;
@@ -112,8 +149,8 @@ void GridFrameView::setCurrentNodeType(PlaceableNodeType nodeType) {
 
 }
 
-void GridFrameView::setCell(int row,
-                            int col) {
+void GridFrameView::setCellToCurrentNode(int row,
+                                         int col) {
 
     NodeTypeSetCellProcessor nodeTypeSetCellProcessor(this,
                                                       row,

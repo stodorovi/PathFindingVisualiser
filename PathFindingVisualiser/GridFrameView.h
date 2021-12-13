@@ -61,6 +61,20 @@ public:
     GridFrameView(GridFrame *gridFrame);
 
     /**
+     * @brief Clears the grid cells.
+    */
+    void clearGrid();
+
+    /**
+     * @brief Shows the confirmation message dialog for clearing the grid and returns the choice.
+     * @return the chosen option id ( wxID_YES / wxID_NO )
+    */
+    int showClearGridConfirmationDialog();
+
+    /** @brief Shows the message that the grid was successfully cleared. */
+    void showGridClearedSuccessMessage();
+
+    /**
      * @brief Sets the currentNodeType and currentNodeColour.
      * @param nodeType to set
     */
@@ -71,8 +85,8 @@ public:
      * @param row 
      * @param col 
     */
-    void setCell(int row,
-                 int col);
+    void setCellToCurrentNode(int row,
+                              int col);
 
     /**
      * @brief Set the size of the cells.

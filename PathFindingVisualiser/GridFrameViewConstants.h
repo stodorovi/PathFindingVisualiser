@@ -14,6 +14,9 @@ namespace GridFrameViewConstants {
     constexpr const int SLIDER_MAX_VALUE = 100;
 
     constexpr const char        *ZOOM_TEXT             = "Zoom:";
+    static constexpr const char *CLEAR_GRID_TITLE      = "Do you want to clear the grid?";
+    static constexpr const char *CLEAR_GRID_MSG        = "Are you sure you want to clear the entire grid?\n"
+                                                         "This action will delete all the currently places nodes";
     static constexpr const char *ON_GRID_CLEARED_TITLE = "Grid Cleared";
     static constexpr const char *ON_GRID_CLEARED_MSG   = "The grid has been successfully cleared.";
 

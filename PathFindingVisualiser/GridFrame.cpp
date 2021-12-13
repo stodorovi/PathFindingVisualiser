@@ -16,25 +16,17 @@ GridFrame::~GridFrame() {
 
 void GridFrame::clearGrid() {
 
-    wxGrid *grid = m_view.getGrid();
+    int clearGridDialogRetValue = m_view.showClearGridConfirmationDialog();
 
-    for (int col = 0; col < GridFrameViewConstants::GRID_COLS; ++col) {
+    if (clearGridDialogRetValue == wxID_NO) {
 
-        for (int row = 0; row < GridFrameViewConstants::GRID_ROWS; ++row) {
-
-            grid->SetCellBackgroundColour(row,
-                                          col,
-                                          GridFrameViewConstants::DEFAULT_CELL_COLOUR);
-
-        }
+        return;
 
     }
 
-    grid->Refresh();
+    m_view.clearGrid();
 
-    wxMessageBox(GridFrameViewConstants::ON_GRID_CLEARED_MSG,
-                 GridFrameViewConstants::ON_GRID_CLEARED_TITLE,
-                 wxOK | wxICON_INFORMATION);
+    m_view.showGridClearedSuccessMessage();
 
     m_view.setPreviousStartPoint(GridFrameViewConstants::INVALID_CELL_POSITION);
     m_view.setPreviousEndPoint(GridFrameViewConstants::INVALID_CELL_POSITION);
@@ -64,7 +56,7 @@ void GridFrame::OnCellSelected(wxGridEvent &event) {
     const int col = event.GetCol();
     const int row = event.GetRow();
 
-    m_view.setCell(row,
+    m_view.setCellToCurrentNode(row,
                    col);
 
     event.Skip();
