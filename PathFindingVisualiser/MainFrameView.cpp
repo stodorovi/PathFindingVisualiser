@@ -56,8 +56,8 @@ void MainFrameView::initToolBar() {
                                                                0});
     m_toolBar->AddControl(toolbarPaddingLeft);
 
-    wxImage::AddHandler(new wxPNGHandler)
-        ;
+    wxImage::AddHandler(new wxPNGHandler);
+
     m_newGridImage = wxBitmap(MainFrameViewConstants::NEW_GRID_IMG_PATH,
                               wxBITMAP_TYPE_PNG);
     m_newGridBtn = m_toolBar->AddTool(MainFrameViewConstants::NEW_GRID_ID,
@@ -66,6 +66,7 @@ void MainFrameView::initToolBar() {
                                       MainFrameViewConstants::FILE_NEW_TEXT);
 
     m_toolBar->AddSeparator();
+
     m_toolBar->AddControl(m_RunAlgorithmBtn);
 
     m_toolBar->Realize();

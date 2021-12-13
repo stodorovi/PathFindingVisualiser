@@ -5,7 +5,7 @@ NodeTypeButtonSelectionSelectableProcessor::NodeTypeButtonSelectionSelectablePro
                                                                                        MainFrame * const mainFrame)
     : m_id{id},
       m_mainFrame{mainFrame},
-      m_idNodeTypeMap{
+      m_idNodeTypeMap {
 
           {m_mainFrame->getView().getStartNodeBtn()->GetId(), PlaceableNodeType::START},
           {m_mainFrame->getView().getEndNodeBtn()->GetId(),   PlaceableNodeType::END},
@@ -39,16 +39,16 @@ void NodeTypeButtonSelectionSelectableProcessor::setCurrentNodeTypeAndToggleButt
 
         placeableNodeType = m_idNodeTypeMap.at(m_id);
 
-        for (IdNodeTypeMap::const_iterator it = m_idNodeTypeMap.begin(); it != m_idNodeTypeMap.end(); ++it) {
+        for (auto &&idNodeTypePair : m_idNodeTypeMap) {
 
-            toolbar->ToggleTool(it->first,
-                                m_id == it->first);
+            toolbar->ToggleTool(idNodeTypePair.first,
+                                m_id == idNodeTypePair.first);
 
         }
 
     }
 
-    GridFrame *activeChild = (GridFrame *) m_mainFrame->GetActiveChild();
+    GridFrame *activeChild = static_cast<GridFrame *>(m_mainFrame->GetActiveChild());
 
     if (activeChild) {
 

@@ -23,7 +23,7 @@ MainFrame::~MainFrame() {
 void MainFrame::onMenuNew(wxCommandEvent &event) {
 
     GridFrame *gridFrame = new GridFrame(this,
-                                         wxT("New Grid"));
+                                         MainFrameViewConstants::FILE_NEW_TEXT);
 
     gridFrame->Bind(wxEVT_CHILD_FOCUS,
                     &MainFrame::onChildWindowFocusChange,
@@ -57,7 +57,7 @@ void MainFrame::onNodeBtnSelected(wxCommandEvent &event) {
 
 void MainFrame::onChildWindowFocusChange(wxChildFocusEvent &event) {
 
-    GridFrame *activeChildFrame = (GridFrame *)GetActiveChild();
+    GridFrame *activeChildFrame = static_cast<GridFrame *>(GetActiveChild());
 
     activeChildFrame->getView().setCurrentNodeType(m_currentNodeType);
 
@@ -67,7 +67,7 @@ void MainFrame::onChildWindowFocusChange(wxChildFocusEvent &event) {
 
 void MainFrame::onClearGridBtnSelected(wxCommandEvent &event) {
 
-    GridFrame *activeChildWindow = (GridFrame*)GetActiveChild();
+    GridFrame *activeChildWindow = static_cast<GridFrame*>(GetActiveChild());
 
     if (activeChildWindow) {
 

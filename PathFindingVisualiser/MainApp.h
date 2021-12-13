@@ -5,6 +5,7 @@
 
 #include "MainFrame.h"
 
+/** @brief Main application. */
 class MainApp : public wxApp {
 
 private:
@@ -14,9 +15,16 @@ private:
 
 public:
 
+	/** @brief Constructor. */
 	MainApp();
+
+	/** @brief Destructor. */
 	~MainApp();
 
+	/**
+	 * @brief Creates the main frame.
+	 * @return 
+	*/
 	virtual bool OnInit();
 
 };

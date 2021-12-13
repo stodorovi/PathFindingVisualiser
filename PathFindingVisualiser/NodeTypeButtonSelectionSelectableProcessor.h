@@ -3,20 +3,20 @@
 
 #include <map>
 
+#include "MainFrameViewConstants.h"
 #include "PlaceableNodeType.h"
 
 /** forward declaration - circular dependancy */
 class MainFrame;
 
-/** @brief Selectable procassors to process. */
+/** @brief Abstract selectable processor. */
 class NodeTypeButtonSelectionSelectableProcessor {
 
 protected:
 
     MainFrame * const m_mainFrame;
 
-    using IdNodeTypeMap = std::map<const int, PlaceableNodeType>;
-    const IdNodeTypeMap m_idNodeTypeMap;
+    const std::map<const int, PlaceableNodeType> m_idNodeTypeMap;
 
     const int m_id;
 
@@ -28,21 +28,17 @@ public:
     /**
      * @brief Constructor.
      * 
-     * @param buttonID - button to process.
+     * @param buttonID - id of the pressed button.
      * @param mainFrame - main frame to process event for.
     */
     NodeTypeButtonSelectionSelectableProcessor(int buttonID,
                                                MainFrame * const mainFrame);
 
-    /**
-     * @brief Retuns if the button matches the given id.
-     * 
-     * @return bool 
-    */
+    /** @brief Checks if the processor matches the one that is triggered. */
     virtual bool matches() = 0;
 
     /** @brief Process the button check. */
-    virtual void process();
+    void process();
 
 };
 

@@ -15,14 +15,12 @@
 /** forward declaration - circular dependancy */
 class MainFrame;
 
-/**
- * @brief Processor that selects the propper processor on node button press.
-*/
+/** @brief Processor that selects the matching sub-processor to process the selected node button */
 class NodeTypeButtonSelectionProcessor {
 
 private:
 
-    /** @brief List of selectable processors to check. */
+    /** @brief Vector of sub-processors */
     std::vector<std::unique_ptr<NodeTypeButtonSelectionSelectableProcessor>> m_processors;
 
 public:
@@ -36,7 +34,7 @@ public:
     NodeTypeButtonSelectionProcessor(int id,
                                      MainFrame * const mainFrame);
 
-    /** @brief Process the processors & select the proper one. */
+    /** @brief Select the matching processor. */
     void process();
 
 };

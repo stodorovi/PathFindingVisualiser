@@ -3,8 +3,8 @@
 
 GridFrameView::GridFrameView(GridFrame *gridFrame)
     : m_gridFrame{gridFrame},
-      m_previousStartPoint{ GridFrameViewConstants::INVALID_CELL_POSITION },
-      m_previousEndPoint{ GridFrameViewConstants::INVALID_CELL_POSITION } {
+      m_previousStartPoint{GridFrameViewConstants::INVALID_CELL_POSITION},
+      m_previousEndPoint{GridFrameViewConstants::INVALID_CELL_POSITION} {
 
     m_mainPanel = new wxPanel(m_gridFrame);
     m_mainSizer = new wxBoxSizer(wxHORIZONTAL);

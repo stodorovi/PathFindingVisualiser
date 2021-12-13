@@ -6,7 +6,14 @@
 /** forward declaration - circular dependancy */
 class GridFrameView;
 
+/** @brief Abstract selectable processor. Should call super if overriding setCell method. */
 class NodeTypeSetCellSelectableProcessor {
+
+private:
+
+    /** @brief Checks if the processor matches the one that is triggered. */
+    virtual bool matches() = 0;
+
 
 protected:
 
@@ -18,17 +25,24 @@ protected:
     int m_row;
     int m_col;
 
+    /** @brief Set the cell. Call super if overriding. */
     virtual void setCell();
 
 public:
 
+    /**
+    * @brief Constructor
+    *
+    * @param gridFrameView - gridFrameView to set the sell for
+    * @param row - cell row position
+    * @param col - cell column position
+    */
     NodeTypeSetCellSelectableProcessor(GridFrameView * const gridFrameView,
                                        int row,
                                        int col);
 
+    /** @brief Process the setting of the selected cell. */
     void process();
-
-    virtual bool matches() = 0;
 
 };
 

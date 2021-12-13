@@ -4,7 +4,7 @@
 #include "MainFrameViewConstants.h"
 #include "NodeTypeButtonSelectionSelectableProcessor.h"
 
-/** @brief Processor for the start node type. */
+/** @brief Processor for the START node type. */
 class StartNodeTypeButtonProcessor : public NodeTypeButtonSelectionSelectableProcessor {
 
 public:
@@ -17,6 +17,7 @@ public:
     StartNodeTypeButtonProcessor(int id,
                                  MainFrame * const mainFrame);
 
+    /** @brief Checks if the processor matches the one that is triggered. */
     virtual bool matches() override;
 
 };

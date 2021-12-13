@@ -3,8 +3,8 @@
 
 #include <map>
 
-#include "wx/sizer.h"
 #include "wx/grid.h"
+#include "wx/sizer.h"
 #include "wx/slider.h"
 #include "wx/stattext.h"
 #include "wx/statusbr.h"
@@ -16,6 +16,7 @@
 /** forward declaration - circular dependancy */
 class GridFrame;
 
+/** @brief Grid frame view. Defines the look of the grid frame. */
 class GridFrameView {
 
 private:
@@ -45,33 +46,86 @@ private:
     wxPoint m_previousStartPoint;
     wxPoint m_previousEndPoint;
 
+    /** @brief Initialises the grid and its elements. */
     void initGrid();
 
+    /** @brief Initialises the status bar and its elements. */
     void initStatusBar();
 
 public:
 
+    /**
+     * @brief Constructor.
+     * @param gridFrame - grid frame to define the look for.
+    */
     GridFrameView(GridFrame *gridFrame);
 
+    /**
+     * @brief Sets the currentNodeType and currentNodeColour.
+     * @param nodeType to set
+    */
     void setCurrentNodeType(PlaceableNodeType nodeType);
 
+    /**
+     * @brief Set the cell to the current node type.
+     * @param row 
+     * @param col 
+    */
     void setCell(int row,
                  int col);
 
+    /**
+     * @brief Set the size of the cells.
+     * @param size 
+    */
     void SetCellsSize(int size);
 
+    /**
+     * @brief grid getter.
+     * @return the grid
+    */
     wxGrid* getGrid() const;
 
+    /**
+     * @brief slider getter.
+     * @return the slider
+    */
     wxSlider *getSlider() const;
 
+    /**
+     * @brief currentNodeType getter.
+     * @return the currentNodeType
+    */
     PlaceableNodeType& getCurrentNodeType();
 
+    /**
+     * @brief currentNodeColour getter.
+     * @return the currentNodeColour
+    */
     wxColour getCurrentNodeColour() const;
 
+    /**
+     * @brief previousStartPoint getter.
+     * @return the previousStartPoint
+    */
     wxPoint getPreviousStartPoint() const;
+
+    /**
+     * @brief previousStartPoint setter.
+     * @param point the point to set
+    */
     void setPreviousStartPoint(wxPoint point);
 
+    /**
+     * @brief previousEndPoint getter.
+     * @return the previousEndPoint
+    */
     wxPoint getPreviousEndPoint() const;
+
+    /**
+     * @brief previousEndPoint setter.
+     * @param point the point to set
+    */
     void setPreviousEndPoint(wxPoint point);
 
 };

@@ -15,8 +15,9 @@ SingleCellNodeTypeSetCellProcessor::SingleCellNodeTypeSetCellProcessor(GridFrame
 
           {PlaceableNodeType::END,
            std::bind(&SingleCellNodeTypeSetCellProcessor::setCellEnd,
-           this)} }
-{
+           this)}
+
+      } {
 }
 
 
