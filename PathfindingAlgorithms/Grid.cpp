@@ -89,7 +89,10 @@ namespace pathAlgs {
 
             if (std::find(visitedPoints.begin(),
                           visitedPoints.end(),
-                          point) != visitedPoints.end()) {
+                          point) != visitedPoints.end()
+                || std::find(unvisitedPoints.begin(),
+                             unvisitedPoints.end(),
+                             point) != unvisitedPoints.end()) {
 
                 continue;
 

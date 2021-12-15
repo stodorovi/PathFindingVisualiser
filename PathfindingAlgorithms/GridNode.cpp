@@ -26,7 +26,7 @@ namespace pathAlgs {
 
         if (precedingNode) {
 
-            m_precedingNode = std::make_unique<GridNode>(precedingNode->getPrecedingNode().get());
+            m_precedingNode = std::make_shared<GridNode>(precedingNode->getPrecedingNode().get());
             
         }
 
@@ -40,7 +40,7 @@ namespace pathAlgs {
 
     }
 
-    std::unique_ptr<GridNode> GridNode::getPrecedingNode() const {
+    std::shared_ptr<GridNode> GridNode::getPrecedingNode() const {
 
         if (!m_precedingNode) {
 
@@ -48,7 +48,7 @@ namespace pathAlgs {
 
         }
 
-        return std::make_unique<GridNode>(*m_precedingNode);
+        return m_precedingNode;
 
     }
 
@@ -58,11 +58,11 @@ namespace pathAlgs {
 
     }
 
-    void GridNode::setPrecedingNode(const std::unique_ptr<GridNode> &node) {
+    void GridNode::setPrecedingNode(std::shared_ptr<GridNode> node) {
 
         if (node == nullptr) {
 
-            m_precedingNode.reset();
+            m_precedingNode = nullptr;
 
             return;
 
@@ -70,12 +70,9 @@ namespace pathAlgs {
 
         if (!m_precedingNode) {
 
-            m_precedingNode.reset(new GridNode());
-            *m_precedingNode = *node;
+            m_precedingNode = node;
 
         }
-
-        *m_precedingNode = *node;
 
     }
 

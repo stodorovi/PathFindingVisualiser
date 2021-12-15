@@ -16,7 +16,7 @@ namespace pathAlgs {
     private:
 
         /** @brief The node preceding this one. */
-        std::unique_ptr<GridNode> m_precedingNode;
+        std::shared_ptr<GridNode> m_precedingNode;
 
         /** @brief This node's point on the grid. */
         Point m_point;
@@ -61,7 +61,7 @@ namespace pathAlgs {
          * 
          * @return the procedingNode
         */
-        std::unique_ptr<GridNode> getPrecedingNode() const;
+        std::shared_ptr<GridNode> getPrecedingNode() const;
 
         GridNode* getPrecedingNodeRaw() const;
 
@@ -70,7 +70,7 @@ namespace pathAlgs {
          * 
          * @param the node to set
         */
-        void setPrecedingNode(const std::unique_ptr<GridNode> &node);
+        void setPrecedingNode(std::shared_ptr<GridNode> node);
 
         /**
          * @brief point getter.
