@@ -36,7 +36,12 @@ namespace pathAlgs {
 
         m_point = node.getPoint();
         m_distance = node.getDistance();
-        setPrecedingNode(node.getPrecedingNode());
+
+        if (node.getPrecedingNode()) {
+
+            setPrecedingNodeCopy(node.getPrecedingNode());
+
+        }
 
     }
 
@@ -71,6 +76,25 @@ namespace pathAlgs {
         if (!m_precedingNode) {
 
             m_precedingNode = node;
+
+        }
+
+    }
+
+    void GridNode::setPrecedingNodeCopy(std::shared_ptr<GridNode> node) {
+
+        if (node == nullptr) {
+
+            m_precedingNode = nullptr;
+
+            return;
+
+        }
+
+        if (!m_precedingNode) {
+            
+            m_precedingNode = std::make_shared<GridNode>();
+            *m_precedingNode = *node;
 
         }
 

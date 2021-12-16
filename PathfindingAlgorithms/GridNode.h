@@ -66,11 +66,18 @@ namespace pathAlgs {
         GridNode* getPrecedingNodeRaw() const;
 
         /**
-         * @brief preceeding node setter. Copies the given object.
+         * @brief preceeding node setter.
          * 
          * @param the node to set
         */
         void setPrecedingNode(std::shared_ptr<GridNode> node);
+
+        /**
+        * @brief preceeding node setter. Copies the given object.
+        *
+        * @param the node to set
+        */
+        void setPrecedingNodeCopy(std::shared_ptr<GridNode> node);
 
         /**
          * @brief point getter.

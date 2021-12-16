@@ -9,12 +9,12 @@ void AssertNotEquals(GridNode &expected, GridNode &actual);
 
 TEST(GridNodeTests, EqualValues) {
 
-    std::unique_ptr<pathAlgs::GridNode> gridNodeMain = std::make_unique<pathAlgs::GridNode>(nullptr);
-    std::unique_ptr<pathAlgs::GridNode> gridNode1 = std::make_unique<pathAlgs::GridNode>(gridNodeMain.get());
-    std::unique_ptr<pathAlgs::GridNode> gridNode2 = std::make_unique<pathAlgs::GridNode>(gridNode1.get());
-    std::unique_ptr<pathAlgs::GridNode> gridNodeTail = std::make_unique<pathAlgs::GridNode>(gridNode2.get());
+    std::shared_ptr<pathAlgs::GridNode> gridNodeMain = std::make_shared<pathAlgs::GridNode>(nullptr);
+    std::shared_ptr<pathAlgs::GridNode> gridNode1 = std::make_shared<pathAlgs::GridNode>(gridNodeMain.get());
+    std::shared_ptr<pathAlgs::GridNode> gridNode2 = std::make_shared<pathAlgs::GridNode>(gridNode1.get());
+    std::shared_ptr<pathAlgs::GridNode> gridNodeTail = std::make_shared<pathAlgs::GridNode>(gridNode2.get());
 
-    std::unique_ptr<pathAlgs::GridNode> gridNode = std::make_unique<pathAlgs::GridNode>(*gridNodeTail);
+    std::shared_ptr<pathAlgs::GridNode> gridNode = std::make_shared<pathAlgs::GridNode>(*gridNodeTail);
 
     AssertEquals(*gridNode, *gridNodeTail);
 
@@ -25,12 +25,11 @@ TEST(GridNodeTests, EqualValues) {
 
 TEST(GridNodeTests, EqualDepth) {
 
-     std::unique_ptr<pathAlgs::GridNode> gridNodeMain = std::make_unique<pathAlgs::GridNode>(nullptr);
-     std::unique_ptr<pathAlgs::GridNode> gridNode1 = std::make_unique<pathAlgs::GridNode>(gridNodeMain.get());
-     std::unique_ptr<pathAlgs::GridNode> gridNode2 = std::make_unique<pathAlgs::GridNode>(gridNode1.get());
-     std::unique_ptr<pathAlgs::GridNode> gridNode3 = std::make_unique<pathAlgs::GridNode>(gridNode2.get());
-   
-     std::unique_ptr<pathAlgs::GridNode> gridNodeTail = std::make_unique<pathAlgs::GridNode>(gridNode3.get());
+     std::shared_ptr<pathAlgs::GridNode> gridNodeMain = std::make_shared<pathAlgs::GridNode>(nullptr);
+     std::shared_ptr<pathAlgs::GridNode> gridNode1 = std::make_shared<pathAlgs::GridNode>(gridNodeMain.get());
+     std::shared_ptr<pathAlgs::GridNode> gridNode2 = std::make_shared<pathAlgs::GridNode>(gridNode1.get());
+     std::shared_ptr<pathAlgs::GridNode> gridNode3 = std::make_shared<pathAlgs::GridNode>(gridNode2.get());
+     std::shared_ptr<pathAlgs::GridNode> gridNodeTail = std::make_shared<pathAlgs::GridNode>(gridNode3.get());
    
      ASSERT_EQ(4, gridNodeTail->getDepth());
 
