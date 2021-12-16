@@ -293,7 +293,11 @@ namespace pathAlgs {
 
         } else {
 
-            errorMsg = gridConstants::GOAL_UNREACHABLE_ERROR_MSG;
+            return SearchResults(traversalOrder,
+                                 goalNode,
+                                 false,
+                                 true,
+                                 gridConstants::GOAL_UNREACHABLE_ERROR_MSG);
 
         }
 
