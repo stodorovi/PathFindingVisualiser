@@ -232,15 +232,21 @@ namespace pathAlgs {
         bool foundGoal = false;
         bool isValidSearch = false;
 
+        std::string errorMsg;
+
 
         if (m_grid.size() == 0
          || validateStartAndEndPoint(startPoint,
                                      endPoint) == false) {
 
+            errorMsg = m_grid.size() == 0 ? gridConstants::INVALID_GRID_SIZE_ERROR_MSG
+                                          : gridConstants::INVALID_NODE_POSITION_ERROR_MSG;
+
             return  SearchResults(traversalOrder,
                                   nullptr,
                                   foundGoal,
-                                  isValidSearch);
+                                  isValidSearch,
+                                  errorMsg);
 
         }
 
@@ -255,6 +261,8 @@ namespace pathAlgs {
             size_t currentNodeIndex = findGridNodeIndexByPoint(currentNodePoint);
             
             GridNode &currentNode = *m_grid[currentNodeIndex];
+
+            if (currentNode.getPoint() == endPoint) break;
             
             if (currentNode.getPoint() == startPoint) {
 
@@ -283,6 +291,10 @@ namespace pathAlgs {
 
             goalNode = endNode.get();
 
+        } else {
+
+            errorMsg = gridConstants::GOAL_UNREACHABLE_ERROR_MSG;
+
         }
 
         traversalOrder = visitedPoints;
@@ -292,7 +304,8 @@ namespace pathAlgs {
         return SearchResults(traversalOrder,
                              goalNode,
                              foundGoal,
-                             isValidSearch);
+                             isValidSearch,
+                             errorMsg);
 
     }
 

@@ -2,8 +2,10 @@
 #define GRID_H
 
 #include <deque>
+#include <string>
 #include <vector>
 
+#include "GridConstants.h"
 #include "GridNode.h"
 #include "Point.h"
 
@@ -74,6 +76,8 @@ namespace pathAlgs {
 
             const bool isSearchValid;
 
+            std::string errorMsg;
+
             /**
              * @brief Copy constructor.
              * 
@@ -83,7 +87,8 @@ namespace pathAlgs {
                 : SearchResults(st.traversalOrder,
                                 st.goalNode.get(),
                                 st.foundGoal,
-                                st.isSearchValid)
+                                st.isSearchValid,
+                                st.errorMsg)
             {}
 
             /**
@@ -97,11 +102,13 @@ namespace pathAlgs {
             SearchResults(const std::deque<Point> traversalOrder,
                           const GridNode * const goalNode,
                           bool foundGoal,
-                          bool isSearchValid)
+                          bool isSearchValid,
+                          std::string errorMsg = "")
                 : traversalOrder{traversalOrder},
                   goalNode{std::make_unique<GridNode>(*goalNode)},
                   foundGoal{foundGoal},
-                  isSearchValid{isSearchValid}
+                  isSearchValid{isSearchValid},
+                  errorMsg{errorMsg}
             {}
 
         };

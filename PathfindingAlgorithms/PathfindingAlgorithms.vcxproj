@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridConstants.h" />
     <ClInclude Include="GridNode.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
