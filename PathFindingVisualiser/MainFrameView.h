@@ -2,6 +2,7 @@
 #define MAIN_FRAME_VIEW
 
 #include "wx/button.h"
+#include "wx/combobox.h"
 #include "wx/imagpng.h"
 #include "wx/mdi.h"
 #include "wx/toolbar.h"
@@ -27,6 +28,11 @@ private:
 
 	wxToolBar         *m_toolBar;
 
+	wxBitmap           m_newGridImage;
+	wxToolBarToolBase *m_newGridBtn;
+
+	wxComboBox        *m_algorithmComboBox;
+
 	wxButton          *m_RunAlgorithmBtn;
 	wxBitmap           m_runAlgorithmImage;
 
@@ -41,9 +47,6 @@ private:
 
 	wxBitmap           m_eraseNodeImage;
 	wxToolBarToolBase *m_eraseNodeBtn;
-
-	wxBitmap           m_newGridImage;
-	wxToolBarToolBase *m_newGridBtn;
 
 	wxBitmap           m_clearGridImage;
 	wxToolBarToolBase *m_clearGridBtn;
@@ -133,6 +136,12 @@ public:
 	 * @return the clearGridBtn
 	*/
 	wxToolBarToolBase* getClearGridBtn() const;
+
+	/**
+	 * @brief algorithmComboBox getter
+	 * @return the algorithmComboBox
+	*/
+	wxComboBox *getAlgorithmComboBox() const;
 
 };
 

@@ -54,6 +54,12 @@ private:
 	*/
 	void onClearGridBtnSelected(wxCommandEvent &event);
 
+	/**
+	 * @brief Sets the active child current algorithm when new one is selected
+	 * @param event 
+	*/
+	void onAlgorithmComboBoxSelect(wxCommandEvent &event);
+
 	/** @brief Bind buttons and other controls. */
 	void BindEvents();
 
@@ -76,6 +82,12 @@ public:
 	 * @return the view.
 	*/
 	MainFrameView& getView();
+
+	/**
+	 * @brief Shows a message box with and error message given.	
+	* @param message the message to show
+	*/
+	void showError(const wxString &message);
 
 };
 

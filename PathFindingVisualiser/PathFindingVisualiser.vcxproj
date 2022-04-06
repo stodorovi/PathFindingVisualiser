@@ -63,6 +63,11 @@
     <ClInclude Include="StartNodeTypeButtonProcessor.h" />
     <ClInclude Include="StartNodeTypeSetCellProcessor.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PathfindingAlgorithms\PathfindingAlgorithms.vcxproj">
+      <Project>{7a599b08-90e0-4c24-b99c-38f7428ef6cc}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

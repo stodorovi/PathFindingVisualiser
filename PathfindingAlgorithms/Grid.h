@@ -70,7 +70,7 @@ namespace pathAlgs {
 
             const std::deque<Point> traversalOrder;
 
-            const std::unique_ptr<GridNode> goalNode;
+            std::unique_ptr<GridNode> goalNode;
 
             const bool foundGoal;
 

@@ -1,6 +1,9 @@
 #include "GridFrame.h"
 #include "GridFrameView.h"
 
+#include <thread>
+#include <chrono>
+
 GridFrameView::GridFrameView(GridFrame *gridFrame)
     : m_gridFrame{gridFrame},
       m_previousStartPoint{GridFrameViewConstants::INVALID_CELL_POSITION},
@@ -39,8 +42,6 @@ void GridFrameView::initGrid() {
     m_grid->EnableDragColSize(false);
 
     m_grid->DisableCellEditControl();
-
-    SetCellsSize(GridFrameViewConstants::GRID_CELL_MIN_SIZE);
 
     m_mainSizer->Add(m_grid,
                      1,
@@ -149,38 +150,6 @@ void GridFrameView::setCurrentNodeType(PlaceableNodeType nodeType) {
 
 }
 
-void GridFrameView::setCellToCurrentNode(int row,
-                                         int col) {
-
-    NodeTypeSetCellProcessor nodeTypeSetCellProcessor(this,
-                                                      row,
-                                                      col);
-
-    nodeTypeSetCellProcessor.process();
-
-}
-
-void GridFrameView::SetCellsSize(int size) {
-
-
-    for (int row = 0; row < GridFrameViewConstants::GRID_COLS; ++row) {
-
-        if (row < GridFrameViewConstants::GRID_ROWS) {
-
-            m_grid->SetRowSize(row,
-                               size);
-
-        }
-
-        m_grid->SetColSize(row,
-                           size);
-
-    }
-
-    m_grid->Refresh();
-
-}
-
 wxGrid *GridFrameView::getGrid() const {
 
     return m_grid;
@@ -225,5 +194,18 @@ wxPoint GridFrameView::getPreviousEndPoint() const {
 void GridFrameView::setPreviousEndPoint(wxPoint point) {
 
     m_previousEndPoint = point;
+
+}
+
+bool operator==(wxPoint first, pathAlgs::Point second) {
+
+    return first.x == second.x
+        && first.y == second.y;
+
+}
+
+bool operator==(pathAlgs::Point first, wxPoint second) {
+
+    return second == first;
 
 }

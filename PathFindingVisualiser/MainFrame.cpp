@@ -42,6 +42,19 @@ void MainFrame::onMenuExit(wxCommandEvent &event) {
 }
 
 void MainFrame::onRunAlgorithmBtnSelected(wxCommandEvent &event) {
+
+    GridFrame *currentChild = static_cast<GridFrame *>(GetActiveChild());
+
+    if (currentChild) {
+
+        currentChild->visualiseAlgorithm();
+
+        return;
+
+    }
+
+    showError(MainFrameViewConstants::WINDOW_NOT_SELECTED_ERR);
+
 }
 
 void MainFrame::onNodeBtnSelected(wxCommandEvent &event) {
@@ -61,6 +74,19 @@ void MainFrame::onChildWindowFocusChange(wxChildFocusEvent &event) {
 
     activeChildFrame->getView().setCurrentNodeType(m_currentNodeType);
 
+    wxComboBox *algorithmComboBox = m_view.getAlgorithmComboBox();
+
+    // fixes throwing read access violation error on close
+    if (!FindWindowById(MainFrameViewConstants::ALGORITHM_COMBO_BOX_ID)) {
+
+        return;
+
+    }
+
+    int childCurrentAlgorithm = activeChildFrame->getCurrentAlgorithm();
+    childCurrentAlgorithm != -1 ? algorithmComboBox->SetSelection(childCurrentAlgorithm)
+                                : algorithmComboBox->SetValue(MainFrameViewConstants::ALGORITHMS_COMBO_BOX_TEXT);
+
     event.Skip();
 
 }
@@ -74,6 +100,30 @@ void MainFrame::onClearGridBtnSelected(wxCommandEvent &event) {
         activeChildWindow->clearGrid();
 
     }
+
+}
+
+void MainFrame::onAlgorithmComboBoxSelect(wxCommandEvent &event) {
+
+    GridFrame *activeChildWindow = static_cast<GridFrame *>(GetActiveChild());
+
+    if (activeChildWindow) {
+
+        int newAlgorithm = static_cast<wxComboBox *>(event.GetEventObject())->GetSelection();
+
+        activeChildWindow->setCurrentAlgorithm(newAlgorithm);
+
+    }
+
+}
+
+void MainFrame::showError(const wxString &message) {
+
+    if (message.empty()) return;
+
+    wxMessageBox(message,
+                 "Error!",
+                 wxOK | wxICON_ERROR);
 
 }
 
@@ -123,6 +173,11 @@ void MainFrame::BindEvents() {
          &MainFrame::onClearGridBtnSelected,
          this,
          m_view.getClearGridBtn()->GetId());
+
+    Bind(wxEVT_COMBOBOX,
+         &MainFrame::onAlgorithmComboBoxSelect,
+         this,
+         m_view.getAlgorithmComboBox()->GetId());
 
 }
 

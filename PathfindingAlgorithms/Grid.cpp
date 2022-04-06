@@ -301,6 +301,7 @@ namespace pathAlgs {
 
         }
 
+        visitedPoints.push_back(goalNode->getPoint());
         traversalOrder = visitedPoints;
         isValidSearch = true;
         foundGoal = static_cast<bool>(goalNode);

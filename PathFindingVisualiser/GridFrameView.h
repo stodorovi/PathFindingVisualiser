@@ -1,6 +1,7 @@
 #ifndef GRID_FRAME_VIEW
 #define GRID_FRAME_VIEW
 
+#include <deque>
 #include <map>
 
 #include "wx/grid.h"
@@ -12,6 +13,7 @@
 #include "GridFrameViewConstants.h"
 #include "NodeTypeSetCellProcessor.h"
 #include "PlaceableNodeType.h"
+#include "../PathfindingAlgorithms/Point.h"
 
 /** forward declaration - circular dependancy */
 class GridFrame;
@@ -81,20 +83,6 @@ public:
     void setCurrentNodeType(PlaceableNodeType nodeType);
 
     /**
-     * @brief Set the cell to the current node type.
-     * @param row 
-     * @param col 
-    */
-    void setCellToCurrentNode(int row,
-                              int col);
-
-    /**
-     * @brief Set the size of the cells.
-     * @param size 
-    */
-    void SetCellsSize(int size);
-
-    /**
      * @brief grid getter.
      * @return the grid
     */
@@ -143,5 +131,8 @@ public:
     void setPreviousEndPoint(wxPoint point);
 
 };
+
+bool operator==(wxPoint first, pathAlgs::Point second);
+bool operator==(pathAlgs::Point first, wxPoint second);
 
 #endif // GRID_FRAME_VIEW

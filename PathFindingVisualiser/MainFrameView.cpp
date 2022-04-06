@@ -41,8 +41,16 @@ void MainFrameView::initToolBar() {
 
 
 
-    m_toolBar = m_mainFrame->CreateToolBar(wxHORIZONTAL,
+    m_toolBar = m_mainFrame->CreateToolBar(wxTB_DEFAULT_STYLE,
                                            MainFrameViewConstants::TOOL_BAR_ID);
+
+    m_algorithmComboBox = new wxComboBox(m_toolBar,
+                                         MainFrameViewConstants::ALGORITHM_COMBO_BOX_ID,
+                                         MainFrameViewConstants::ALGORITHMS_COMBO_BOX_TEXT,
+                                         wxDefaultPosition,
+                                         MainFrameViewConstants::ALGORITHMS_COMBO_BOX_SIZE,
+                                         MainFrameViewConstants::ALGORITHMS_ARRAY_STRING);
+    m_algorithmComboBox->SetEditable(false);
 
     m_RunAlgorithmBtn = new wxButton(m_toolBar,
                                      MainFrameViewConstants::RUN_ALGORITHM_ID,
@@ -66,6 +74,8 @@ void MainFrameView::initToolBar() {
                                       MainFrameViewConstants::FILE_NEW_TEXT);
 
     m_toolBar->AddSeparator();
+
+    m_toolBar->AddControl(m_algorithmComboBox);
 
     m_toolBar->AddControl(m_RunAlgorithmBtn);
 
@@ -197,5 +207,11 @@ wxToolBarToolBase *MainFrameView::getNewGridBtn() const {
 wxToolBarToolBase *MainFrameView::getClearGridBtn() const {
 
     return m_clearGridBtn;
+
+}
+
+wxComboBox *MainFrameView::getAlgorithmComboBox() const {
+
+    return m_algorithmComboBox;
 
 }
