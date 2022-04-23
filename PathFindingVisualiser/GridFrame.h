@@ -42,7 +42,7 @@ private:
 
     wxTimer *m_visualisationCellColouringTimer;
 
-    const int m_visualisationSpeed = 15;
+    const int m_visualisationSpeed = 5;
 
     /**
      * @brief Creates GridMap from the internal grid values.
