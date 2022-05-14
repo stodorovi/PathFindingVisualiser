@@ -16,6 +16,18 @@ namespace pathAlgs {
     class Grid {
 
     private:
+
+        enum Direction {
+            LEFT = 1,
+            LEFT_UP,
+            UP,
+            RIGHT_UP,
+            RIGHT,
+            RIGHT_DOWN,
+            DOWN,
+            LEFT_DOWN,
+            ALL = UINT_MAX
+        };
         
         /**
          * @brief Map of traversable / untraversable points.
@@ -55,13 +67,15 @@ namespace pathAlgs {
                                                      std::deque<Point> &unvisitedPoints) const;
 
         /**
-         * @brief Gets the traversable surrounding points.
+         * @brief Gets the traversable surrounding points from specified directions.
          * 
          * @param point
+         * @param direction - all directions by default
          * 
          * @return std::vector<Point>
         */
-        std::vector<Point> getSurroundingPoints(const Point &point) const;
+        std::vector<Point> getSurroundingPoints(const Point &point,
+                                                const Direction direction = Direction::ALL) const;
     
     public:
 

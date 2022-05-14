@@ -122,7 +122,8 @@ namespace pathAlgs {
 
     }
 
-    std::vector<Point> Grid::getSurroundingPoints(const Point &point) const {
+    std::vector<Point> Grid::getSurroundingPoints(const Point &point,
+                                                  const Direction direction) const {
 
         std::vector<Point> surroundingPoints;
 
@@ -137,20 +138,24 @@ namespace pathAlgs {
 
         }
 
-        bool leftPointTraversable   = firstColumn ? false : m_gridMap[point.y]    [point.x - 1];
-        bool rightPointTraversable  = lastColumn  ? false : m_gridMap[point.y]    [point.x + 1];
-        bool topPointTraversable    = firstRow    ? false : m_gridMap[point.y - 1][point.x];
-        bool bottomPointTraversable = lastRow     ? false : m_gridMap[point.y + 1][point.x];
+        bool leftPointTraversable   = !firstColumn && (direction & Direction::LEFT)  ? m_gridMap[point.y]    [point.x - 1] : false;
+        bool rightPointTraversable  = !lastColumn  && (direction & Direction::RIGHT) ? m_gridMap[point.y]    [point.x + 1] : false;
+        bool topPointTraversable    = !firstRow    && (direction & Direction::UP)    ? m_gridMap[point.y - 1][point.x]     : false;
+        bool bottomPointTraversable = !lastRow     && (direction & Direction::DOWN)  ? m_gridMap[point.y + 1][point.x]     : false;
 
-        bool topLeftTraversable     = (firstColumn || firstRow) ? false : m_gridMap[point.y - 1][point.x - 1];
-        bool topRightTraversable    = (lastColumn  || firstRow) ? false : m_gridMap[point.y - 1][point.x + 1];
-        bool bottomLeftTraversable  = (firstColumn || lastRow)  ? false : m_gridMap[point.y + 1][point.x - 1];
-        bool bottomRightTraversable = (lastColumn  || lastRow)  ? false : m_gridMap[point.y + 1][point.x + 1];
+        bool topLeftTraversable     = !(firstColumn || firstRow) && (direction & Direction::LEFT_UP)    ? m_gridMap[point.y - 1][point.x - 1] : false;
+        bool topRightTraversable    = !(lastColumn  || firstRow) && (direction & Direction::RIGHT_UP)   ? m_gridMap[point.y - 1][point.x + 1] : false;
+        bool bottomLeftTraversable  = !(firstColumn || lastRow)  && (direction & Direction::LEFT_DOWN)  ? m_gridMap[point.y + 1][point.x - 1] : false;
+        bool bottomRightTraversable = !(lastColumn  || lastRow)  && (direction & Direction::RIGHT_DOWN) ? m_gridMap[point.y + 1][point.x + 1] : false;
 
         if (!rightPointTraversable
          && !leftPointTraversable
          && !topPointTraversable
-         && !bottomPointTraversable) {
+         && !bottomPointTraversable
+         && !topLeftTraversable
+         && !topRightTraversable
+         && !bottomLeftTraversable
+         && !bottomRightTraversable) {
 
             return surroundingPoints;
 
