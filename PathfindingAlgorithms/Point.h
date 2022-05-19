@@ -40,6 +40,23 @@ namespace pathAlgs {
                     other.y)
         {}
 
+        /**
+        *
+        * @brief Distance from another point. Takes in consideration 8-way movement.
+        * 
+        */
+        int distanceFrom(const Point& other) const {
+
+            int xDistance = std::abs(this->x - other.x);
+            int yDistance = std::abs(this->y - other.y);
+
+            int xDistanceGreater = static_cast<int>(xDistance > yDistance);
+
+            return (xDistanceGreater * xDistance)
+                 + (xDistanceGreater * yDistance);
+
+        }
+
     };
 
 }
