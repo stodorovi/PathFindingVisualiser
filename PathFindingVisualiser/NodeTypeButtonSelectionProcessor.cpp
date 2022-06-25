@@ -18,7 +18,7 @@ NodeTypeButtonSelectionProcessor::NodeTypeButtonSelectionProcessor(int id,
 
 void NodeTypeButtonSelectionProcessor::process() {
 
-    for (auto &&processor : m_processors) {
+    for (auto &processor : m_processors) {
 
         processor->process();
 

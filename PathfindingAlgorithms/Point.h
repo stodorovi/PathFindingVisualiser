@@ -3,7 +3,6 @@
 
 namespace pathAlgs {
 
-    /** Point in two dimensional grid. */
     class Point {
 
     public:
@@ -35,17 +34,26 @@ namespace pathAlgs {
 
         }
 
+        bool operator>(const Point& other) const {
+
+            return x > other.x
+                && y > other.y;
+
+        }
+
+        bool operator<(const Point& other) const {
+
+            return x < other.x
+                && y < other.y;
+
+        }
+
         Point(const Point &other)
             : Point(other.x,
                     other.y)
         {}
 
-        /**
-        *
-        * @brief Distance from another point. Takes in consideration 8-way movement.
-        * 
-        */
-        int distanceFrom(const Point& other) const {
+        inline int distanceFrom(const Point& other) const {
 
             int xDistance = std::abs(this->x - other.x);
             int yDistance = std::abs(this->y - other.y);

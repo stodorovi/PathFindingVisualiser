@@ -1,4 +1,23 @@
 #include "GridNode.h"
+#include "Grid.h"
+
+namespace {
+    inline void recalculateF(pathAlgs::GridNode& n) {
+
+        n.setF(n.getG() + n.getH());
+
+    }
+
+    inline float hypotenuse(const pathAlgs::Point p1,
+                            const pathAlgs::Point p2) {
+
+        float a = std::abs(p1.x - p2.x);
+        float b = std::abs(p1.y - p2.y);
+
+        return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
+
+    }
+}
 
 namespace pathAlgs {
 
@@ -20,13 +39,16 @@ namespace pathAlgs {
     GridNode::GridNode(GridNode *precedingNode,
                        Point point,
                        int distanceFromPrecedingNode)
-        : m_precedingNode{nullptr},
+        : m_parentNode{nullptr},
           m_point{point},
-          m_distance{distanceFromPrecedingNode} {
+          m_distance{distanceFromPrecedingNode},
+          m_g{0},
+          m_h{0},
+          m_f{0} {
 
         if (precedingNode) {
 
-            m_precedingNode = std::make_shared<GridNode>(precedingNode->getPrecedingNode().get());
+            m_parentNode = std::make_shared<GridNode>(precedingNode->getPrecedingNode().get());
             
         }
 
@@ -47,19 +69,19 @@ namespace pathAlgs {
 
     std::shared_ptr<GridNode> GridNode::getPrecedingNode() const {
 
-        if (!m_precedingNode) {
+        if (!m_parentNode) {
 
             return nullptr;
 
         }
 
-        return m_precedingNode;
+        return m_parentNode;
 
     }
 
     GridNode *GridNode::getPrecedingNodeRaw() const {
 
-        return m_precedingNode.get();
+        return m_parentNode.get();
 
     }
 
@@ -67,15 +89,15 @@ namespace pathAlgs {
 
         if (node == nullptr) {
 
-            m_precedingNode = nullptr;
+            m_parentNode = nullptr;
 
             return;
 
         }
 
-        if (!m_precedingNode) {
+        if (!m_parentNode) {
 
-            m_precedingNode = node;
+            m_parentNode = node;
 
         }
 
@@ -85,16 +107,16 @@ namespace pathAlgs {
 
         if (node == nullptr) {
 
-            m_precedingNode = nullptr;
+            m_parentNode = nullptr;
 
             return;
 
         }
 
-        if (!m_precedingNode) {
+        if (!m_parentNode) {
             
-            m_precedingNode = std::make_shared<GridNode>();
-            *m_precedingNode = *node;
+            m_parentNode = std::make_shared<GridNode>();
+            *m_parentNode = *node;
 
         }
 
@@ -134,7 +156,7 @@ namespace pathAlgs {
 
         size_t depth = 0;
 
-        GridNode *nodePtr = m_precedingNode.get();
+        GridNode *nodePtr = m_parentNode.get();
         while (nodePtr != nullptr) {
 
             depth++;
@@ -143,6 +165,51 @@ namespace pathAlgs {
         }
 
         return depth;
+
+    }
+
+    float GridNode::getG() const {
+        return m_g;
+    }
+    void GridNode::setG(float g) {
+
+        m_g = g < 0 ? 0 : g;
+        recalculateF(*this);
+
+    }
+
+    float GridNode::getH() const {
+        return m_h;
+    }
+    void GridNode::setH(float h) {
+
+        m_h = h < 0 ? 0 : h;
+        recalculateF(*this);
+
+    }
+
+    float GridNode::getF() const {
+        return m_f;
+    }
+    void GridNode::setF(float f) {
+        m_f = f < 0 ? 0 : f;
+    }
+
+    void GridNode::calculateAstarValues(const Point &startPoint,
+                                        const Point &endPoint,
+                                        const TraversabilityMap &t) {
+
+        m_g = t[m_point.y][m_point.x] ? hypotenuse(m_point, startPoint) : INT_MAX;
+        m_h = t[m_point.y][m_point.x] ? hypotenuse(m_point, endPoint)   : INT_MAX;
+        m_f = m_g + m_h;
+
+    }
+
+    bool GridNode::operator==(GridNode& other) {
+        
+        return this->m_distance == other.getDistance()
+            && this->m_parentNode == other.getPrecedingNode()
+            && this->m_point == other.getPoint();
 
     }
 

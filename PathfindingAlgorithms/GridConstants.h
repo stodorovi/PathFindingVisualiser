@@ -1,7 +1,15 @@
 #ifndef GRID_CONSTANTS_H
 #define GRID_CONSTANTS_H
 
-namespace gridConstants {
+#include <memory>
+
+namespace pathAlgs {
+
+    class GridNode;
+
+    using TraversabilityMap = std::vector<std::vector<bool>>;
+    using GridNodePtr       = std::shared_ptr<GridNode>;
+    using GridNodeVector    = std::vector<std::vector<GridNodePtr>>;
 
     static constexpr const char *INVALID_GRID_SIZE_ERROR_MSG     = "The grid size is invalid.\n\n"
                                                                    "Make sure the grid size is bigger than zero.";

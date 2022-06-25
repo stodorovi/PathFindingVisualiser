@@ -109,9 +109,11 @@ void MainFrame::onAlgorithmComboBoxSelect(wxCommandEvent &event) {
 
     if (activeChildWindow) {
 
-        int newAlgorithm = static_cast<wxComboBox *>(event.GetEventObject())->GetSelection();
+        wxString newAlgorithmName = static_cast<wxComboBox*>(event.GetEventObject())->GetValue();
+        int newAlgorithmIndex = static_cast<wxComboBox *>(event.GetEventObject())->GetSelection();
 
-        activeChildWindow->setCurrentAlgorithm(newAlgorithm);
+        activeChildWindow->setCurrentAlgorithm(newAlgorithmIndex,
+                                               newAlgorithmName);
 
     }
 

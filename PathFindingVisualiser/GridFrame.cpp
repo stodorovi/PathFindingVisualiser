@@ -43,9 +43,9 @@ void GridFrame::clearGrid() {
 
 }
 
-pathAlgs::GridMap GridFrame::getGridMap() {
+pathAlgs::TraversabilityMap GridFrame::getTraversabilityMap() {
 
-    pathAlgs::GridMap gridMap;
+    pathAlgs::TraversabilityMap gridMap;
 
     m_startPoint = GridFrameConstants::INVALID_CELL_POSITION;
     m_endPoint   = GridFrameConstants::INVALID_CELL_POSITION;
@@ -189,10 +189,9 @@ void GridFrame::visualiseAlgorithm() {
 
     clearLastTraversalVisualisation();
 
-    m_grid.setGrid(getGridMap());
+    m_grid.setGrid(getTraversabilityMap());
 
-    pathAlgs::Grid::SearchResults searchResults = m_grid.findPathDijkstra(m_startPoint,
-                                                                          m_endPoint);
+    pathAlgs::Grid::SearchResults searchResults = findPath();
 
     std::vector<wxString> errorMessageList;
 
@@ -297,11 +296,13 @@ int GridFrame::getCurrentAlgorithm() const {
 
 }
 
-void GridFrame::setCurrentAlgorithm(int algorithmIndex) {
+void GridFrame::setCurrentAlgorithm(int algorithmIndex,
+                                    const wxString &algorithmName) {
 
     if (m_isCurrentlyVisualising) return;
 
     m_currentAlgoritm = algorithmIndex;
+    this->SetTitle(algorithmName);
 
 }
 
@@ -356,5 +357,30 @@ void GridFrame::onClose(wxCloseEvent &event) {
     m_visualisationCellColouringTimer->Stop();
 
     event.Skip();
+
+}
+
+pathAlgs::Grid::SearchResults GridFrame::findPath() const {
+
+    MainFrame* mainFrame = static_cast<MainFrame*>(GetParent());
+    wxString algorithm   = mainFrame->getView().getAlgorithmComboBox()->GetValue();
+
+    if (algorithm == MainFrameViewConstants::ALGORITHM_DIJKSTRA) {
+
+        return m_grid.findPathDijkstra(m_startPoint,
+                                       m_endPoint);
+
+    }
+    else if (algorithm == MainFrameViewConstants::ALGORITHM_A_STAR) {
+
+        return  m_grid.findPathAStar(m_startPoint,
+                                     m_endPoint);
+
+    }
+    else {
+
+        return pathAlgs::Grid::SearchResults();
+
+    }
 
 }

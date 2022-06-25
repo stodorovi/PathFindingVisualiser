@@ -25,16 +25,20 @@ namespace MainFrameViewConstants {
 	static constexpr const char *ALGORITHMS_COMBO_BOX_TEXT = "-- Choose An Algorithm --";
 
 	static constexpr int PADDING_SIZE			= 10;
-	static constexpr size_t ALGORITHM_LIST_SIZE = 1;
 
 	static const wxSize ALGORITHMS_COMBO_BOX_SIZE { 175,
 												    50 };
 
+	static constexpr size_t ALGORITHM_LIST_SIZE = 2;
 	static const char *ALGORITHM_LIST[ALGORITHM_LIST_SIZE] = {
 
-		"Dijkstra"
+		"Dijkstra",
+		"A*"
 
 	};
+	static const wxString ALGORITHM_DIJKSTRA = ALGORITHM_LIST[0];
+	static const wxString ALGORITHM_A_STAR   = ALGORITHM_LIST[1];
+
 	static const wxArrayString ALGORITHMS_ARRAY_STRING { ALGORITHM_LIST_SIZE,
 														 ALGORITHM_LIST };
 

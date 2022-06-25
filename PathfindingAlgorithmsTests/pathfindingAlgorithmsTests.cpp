@@ -12,7 +12,7 @@ protected:
 
     void SetUp() {
 
-        pathAlgs::GridMap map = {
+        pathAlgs::TraversabilityMap map = {
 
             { 1, 0, 1 },
             { 1, 1, 1 },
@@ -41,7 +41,7 @@ TEST_F(AlgorithmsTest, Dijkstra) {
               searchResults.goalNode->getPoint());
 
     // Goal out of bounds
-    pathAlgs::GridMap newMap{
+    pathAlgs::TraversabilityMap newMap{
 
         {1, 1, 1},
         {0, 1, 0},
@@ -77,5 +77,34 @@ TEST_F(AlgorithmsTest, Dijkstra) {
 
     ASSERT_TRUE(goalNotReachable.isSearchValid);
     ASSERT_FALSE(goalNotReachable.foundGoal);
+
+}
+
+TEST_F(AlgorithmsTest, A_star) {
+
+    pathAlgs::TraversabilityMap map {
+
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 0, 0, 0, 1, 1},
+        {1, 1, 1, 1, 1, 0, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+
+    };
+
+    pathAlgs::Point startPoint{ 1, 2 };
+    pathAlgs::Point endPoint{ 6, 0 };
+
+    grid.setGrid(map);
+
+    pathAlgs::Grid::SearchResults searchResults = grid.findPathAStar(startPoint,
+                                                                     endPoint);
+
+    ASSERT_TRUE(searchResults.isSearchValid);
+    ASSERT_TRUE(searchResults.foundGoal);
+
+    pathAlgs::Grid::SearchResults dijkstraSearchResults = grid.findPathDijkstra(startPoint,
+                                                                                endPoint);
+
+    ASSERT_TRUE(searchResults.goalNode->getDepth() > dijkstraSearchResults.goalNode->getDepth());
 
 }

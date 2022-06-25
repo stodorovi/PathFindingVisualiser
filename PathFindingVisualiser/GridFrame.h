@@ -32,7 +32,7 @@ private:
     std::deque<pathAlgs::Point> m_traversalOrder;
     size_t m_traversalOrderCount;
 
-    std::unique_ptr<pathAlgs::GridNode> m_lastGoalNode;
+    pathAlgs::GridNodePtr m_lastGoalNode;
     float m_goalNodeDepth;
     pathAlgs::GridNode *m_shortestPathCurrentNode;
 
@@ -45,11 +45,11 @@ private:
     const int m_visualisationSpeed = 5;
 
     /**
-     * @brief Creates GridMap from the internal grid values.
+     * @brief Creates TraversabilityMap from the internal grid values.
      * 
-     * @return GridMap
+     * @return TraversabilityMap
     */
-    pathAlgs::GridMap getGridMap();
+    pathAlgs::TraversabilityMap getTraversabilityMap();
 
     /** @brief Bind events to buttons & other controls. */
     void BindEvents();
@@ -87,6 +87,12 @@ private:
 
     /** @brief Stop the timer before closing the window. */
     void onClose(wxCloseEvent &event);
+
+    /**
+    * @brief Searches the path with the selected algorithm.
+    * @return the search results
+    */
+    pathAlgs::Grid::SearchResults findPath() const;
 
 public:
 
@@ -139,7 +145,8 @@ public:
      * @brief currrentAlgorithm setter
      * @param algorithmIndex the algorithmIndex to set
     */
-    void setCurrentAlgorithm(int algorithmIndex);
+    void setCurrentAlgorithm(int algorithmIndex,
+                             const wxString &algorithmName);
 
 };
 

@@ -1,6 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
 
+#include <cmath>
 #include <deque>
 #include <string>
 #include <vector>
@@ -11,110 +12,38 @@
 
 namespace pathAlgs {
 
-    using GridMap = std::vector<std::vector<bool>>;
-
     class Grid {
 
     private:
-
-        enum Direction {
-            LEFT = 1,
-            LEFT_UP,
-            UP,
-            RIGHT_UP,
-            RIGHT,
-            RIGHT_DOWN,
-            DOWN,
-            LEFT_DOWN,
-            ALL = UINT_MAX
-        };
         
-        /**
-         * @brief Map of traversable / untraversable points.
-         * Used for creating the main grid.
-        */
-        GridMap m_gridMap;
+        TraversabilityMap m_traversabilityMap;
 
-        /** @brief Grid used for pathfinding. */
-        std::vector<std::unique_ptr<GridNode>> m_grid;
+        GridNodeVector m_grid;
 
-        /** @brief Initialises the grid based on the set GridMap. */
         void initGrid();
-
-        /**
-         * @brief Validates that the start & the end points are on the grid.
-         * 
-         * @param startPoint
-         * @param endPoint
-         * 
-         * @return 1 if valid, 0 if not.
-        */
-        bool validateStartAndEndPoint(Point startPoint,
-                                      Point endPoint) const;
-
-        /**
-         * @brief Calculates the shortest distance from the start node
-         * to the surrounding nodes of the passed node.
-         * 
-         * @param node
-         * @param surroundingPoints
-         * @param visitedPoints 
-         * @param unvisitedPoints 
-        */
-        void calculateDistancesFromSurroundingPoints(const GridNode &node,
-                                                     std::vector<Point> &surroundingPoints,
-                                                     std::deque<Point> &visitedPoints,
-                                                     std::deque<Point> &unvisitedPoints) const;
-
-        /**
-         * @brief Gets the traversable surrounding points from specified directions.
-         * 
-         * @param point
-         * @param direction - all directions by default
-         * 
-         * @return std::vector<Point>
-        */
-        std::vector<Point> getSurroundingPoints(const Point &point,
-                                                const Direction direction = Direction::ALL) const;
     
     public:
 
-        /** @brief Struct containing pathfinging search results. */
         struct SearchResults {
 
             const std::deque<Point> traversalOrder;
-
-            std::unique_ptr<GridNode> goalNode;
-
-            const bool foundGoal;
-
-            const bool isSearchValid;
-
+            const GridNodePtr goalNode;
+            const bool foundGoal = false;
+            const bool isSearchValid = false;
             std::string errorMsg;
 
-            /**
-             * @brief Copy constructor.
-             * 
-             * @param st SearchResult to copy from.
-            */
+            SearchResults() {}
+
             SearchResults(const SearchResults &st)
                 : SearchResults(st.traversalOrder,
-                                st.goalNode.get(),
+                                st.goalNode,
                                 st.foundGoal,
                                 st.isSearchValid,
                                 st.errorMsg)
             {}
 
-            /**
-             * @brief Constructor.
-             * 
-             * @param traversalOrder 
-             * @param goalNode 
-             * @param foundGoal 
-             * @param isSearchValid 
-            */
             SearchResults(const std::deque<Point> traversalOrder,
-                          const GridNode * const goalNode,
+                          const GridNodePtr goalNode,
                           bool foundGoal,
                           bool isSearchValid,
                           std::string errorMsg = "")
@@ -129,50 +58,16 @@ namespace pathAlgs {
 
         Grid();
 
-        /**
-         * @brief Constructor with grid map.
-         * Initialises the internal grid based on the map.
-         * 
-         * @param gridMap The map of traversable & untraversable points.
-        */
-        Grid(const GridMap &gridMap);
+        Grid(const TraversabilityMap & traversabilityMap);
 
-        /**
-         * @brief Grid size.
-         * 
-         * @return size_t
-        */
         size_t sizeOfGrid() const;
+        void setGrid(const TraversabilityMap &traversabilityMap);
 
-        /**
-         * @brief Find a node in the internal grid by its point.
-         * 
-         * @param point
-         * 
-         * @return Index of the node in the grid,
-         * -1 if not found.
-        */
-        size_t findGridNodeIndexByPoint(Point point) const;
+        SearchResults findPathDijkstra(const Point &startPoint,
+                                       const Point &endPoint) const;
 
-        /**
-         * @brief Grid setter.
-         * 
-         * @param gridMap The map of traversable & untraversable points
-         * to use to set the new grid.
-        */
-        void setGrid(const GridMap &gridMap);
-
-        /**
-         * @brief Find a path int the grid between the start & the end points.
-         * Uses Dijkstra's algorithm.
-         * 
-         * @param startPoint 
-         * @param endPoint 
-         * 
-         * @return SearchResults
-        */
-        SearchResults findPathDijkstra(Point startPoint,
-                                       Point endPoint) const;
+        SearchResults findPathAStar(const Point &startPoint,
+                                    const Point &endPoint) const;
 
     };
 
