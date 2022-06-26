@@ -454,7 +454,7 @@ namespace pathAlgs {
 
                 }
 
-                surroundingNode->calculateAstarValues(currentGridNode->getPoint(),
+                surroundingNode->calculateAstarValues(startPoint,
                                                       endPoint,
                                                       m_traversabilityMap);
 
