@@ -420,16 +420,6 @@ namespace pathAlgs {
 
             const auto currentGridNode = vistedNodes.back().first;
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="startPoint"></param>
-            /// <param name="endPoint"></param>
-            /// <returns></returns>
-            int brejkP = currentGridNode->getPoint().x;
-            int brejkK = currentGridNode->getPoint().y;
-
-
             const auto surroundingNodes = getSurroundingPoints(currentGridNode,
                                                                m_traversabilityMap);
 
