@@ -360,7 +360,7 @@ void GridFrame::onClose(wxCloseEvent &event) {
 
 }
 
-pathAlgs::Grid::SearchResults GridFrame::findPath() const {
+pathAlgs::Grid::SearchResults GridFrame::findPath() {
 
     MainFrame* mainFrame = static_cast<MainFrame*>(GetParent());
     wxString algorithm   = mainFrame->getView().getAlgorithmComboBox()->GetValue();

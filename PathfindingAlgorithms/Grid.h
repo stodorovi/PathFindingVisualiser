@@ -30,7 +30,7 @@ namespace pathAlgs {
             const GridNodePtr goalNode;
             const bool foundGoal = false;
             const bool isSearchValid = false;
-            std::string errorMsg;
+            std::string errorMsg = GOAL_UNREACHABLE_ERROR_MSG;
 
             SearchResults() {}
 
@@ -64,10 +64,10 @@ namespace pathAlgs {
         void setGrid(const TraversabilityMap &traversabilityMap);
 
         SearchResults findPathDijkstra(const Point &startPoint,
-                                       const Point &endPoint) const;
+                                       const Point &endPoint);
 
         SearchResults findPathAStar(const Point &startPoint,
-                                    const Point &endPoint) const;
+                                    const Point &endPoint);
 
     };
 

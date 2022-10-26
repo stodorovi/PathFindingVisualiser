@@ -1,4 +1,5 @@
 #include "Grid.h"
+
 #include <algorithm>
 #include <map>
 #include <optional>
@@ -287,7 +288,7 @@ namespace pathAlgs {
     }
 
     Grid::SearchResults Grid::findPathDijkstra(const Point &startPoint,
-                                               const Point &endPoint) const {
+                                               const Point &endPoint) {
 
         std::string errorMsg;
         auto validity = checkValidityBeforeSearch(m_grid,
@@ -376,7 +377,7 @@ namespace pathAlgs {
     }
 
     Grid::SearchResults Grid::findPathAStar(const Point &startPoint,
-                                            const Point &endPoint) const {
+                                            const Point &endPoint) {
 
         std::string errorMsg;
         auto validity = checkValidityBeforeSearch(m_grid,

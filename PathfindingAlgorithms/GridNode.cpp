@@ -1,7 +1,10 @@
 #include "GridNode.h"
 #include "Grid.h"
 
+#include <limits>
+
 namespace {
+
     inline void recalculateF(pathAlgs::GridNode& n) {
 
         n.setF(n.getG() + n.getH());
@@ -17,6 +20,7 @@ namespace {
         return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
 
     }
+
 }
 
 namespace pathAlgs {
@@ -42,9 +46,10 @@ namespace pathAlgs {
         : m_parentNode{nullptr},
           m_point{point},
           m_distance{distanceFromPrecedingNode},
-          m_g{0},
-          m_h{0},
-          m_f{0} {
+          m_g{ std::numeric_limits<float>::max() },
+          m_h{ std::numeric_limits<float>::max() },
+          m_f{ std::numeric_limits<float>::max() }
+    {
 
         if (precedingNode) {
 
@@ -174,8 +179,8 @@ namespace pathAlgs {
     void GridNode::setG(float g) {
 
         m_g = g < 0 ? 0 : g;
-        recalculateF(*this);
 
+        recalculateF(*this);
     }
 
     float GridNode::getH() const {

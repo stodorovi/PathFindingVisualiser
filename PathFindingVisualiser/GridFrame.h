@@ -92,7 +92,7 @@ private:
     * @brief Searches the path with the selected algorithm.
     * @return the search results
     */
-    pathAlgs::Grid::SearchResults findPath() const;
+    pathAlgs::Grid::SearchResults findPath();
 
 public:
 
