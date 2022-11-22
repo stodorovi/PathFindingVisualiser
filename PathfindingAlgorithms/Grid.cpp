@@ -237,6 +237,78 @@ namespace {
 
     }
 
+    size_t calculateClearanceValue(pathAlgs::Point p,
+                                   const pathAlgs::TraversabilityMap& tm) {
+
+        size_t clearance = 1;
+        bool obstacleFound = !tm[p.y][p.x];
+
+        while (!obstacleFound) {
+            if (p.y == tm.size() -1 && p.x == tm[0].size() - 1) return clearance;
+
+            if (p.y < tm.size() - 1) p.y += 1;
+            if (p.x < tm[0].size() - 1) p.x += 1;
+
+
+            for (size_t i = 0; i < p.x; ++i) {
+                if (bool traversable = tm[p.y][i]; !traversable) return clearance;
+            }
+            for (size_t i = 0; i < p.y; ++i) {
+                if (bool traversable = tm[i][p.x]; !traversable) return clearance;
+            }
+
+            ++clearance;
+        }
+
+        return clearance;
+
+    }
+
+    pathAlgs::ClearanceMap createClearanceMap(const pathAlgs::TraversabilityMap& tm) {
+
+        using namespace pathAlgs;
+
+        size_t row_cnt = tm.size();
+        size_t column_cnt = row_cnt ? tm[0].size() : 0;
+
+        ClearanceMap cm;
+        for (size_t row = 0; row < row_cnt; ++row) {
+            std::vector<size_t> cm_row;
+
+            for (size_t column = 0; column < column_cnt; ++column) {
+
+                cm_row.push_back(calculateClearanceValue(pathAlgs::Point{ static_cast<int>(column),
+                                                                          static_cast<int>(row) },
+                                                         tm));
+
+            }
+
+            cm.push_back(std::move(cm_row));
+
+        }
+
+        return cm;
+
+    }
+
+    size_t getClearanceValueFromMap(const pathAlgs::Point& p, const pathAlgs::ClearanceMap& cm) {
+        
+        if (cm.size() == 0 || cm[0].size() == 0) return -1;
+
+        const bool emptyMap = !cm.size();
+        const bool emptyColumns = !cm[0].size();
+        const bool invalidMap = emptyMap || emptyColumns;
+
+        const bool invalidRow = p.y < 0 || p.y > cm.size();
+        const bool invalidColumn = p.x < 0 || p.x > cm[0].size();
+        const bool invalidPoint = invalidRow || invalidColumn;
+
+        if (invalidMap || invalidPoint) return -1;
+
+        return cm[p.y][p.x];
+
+    }
+
 }
 
 namespace pathAlgs {
@@ -475,6 +547,140 @@ namespace pathAlgs {
             }
 
         } outsideOfWhile: ;
+
+        const GridNodePtr endNode = *findInGridNodeVectorByPoint(m_grid,
+                                                                 endPoint).value();
+        if (!endNode->getPrecedingNode()) {
+
+            return SearchResults({},
+                                 nullptr,
+                                 false,
+                                 true,
+                                 GOAL_UNREACHABLE_ERROR_MSG);
+
+        }
+
+        traversalOrder.pop_front();
+        traversalOrder.push_back(endPoint);
+        return SearchResults(traversalOrder,
+                             endNode,
+                             static_cast<bool>(endNode),
+                             true,
+                             errorMsg);
+
+    }
+
+    Grid::SearchResults Grid::findPathHPAStar(const Point& startPoint,
+                                              const Point& endPoint) {
+
+        return annotatedAStar(startPoint,
+                              endPoint);
+
+    }
+
+    Grid::SearchResults Grid::annotatedAStar(const Point & startPoint,
+            const Point & endPoint) {
+        std::string errorMsg;
+        auto validity = checkValidityBeforeSearch(m_grid,
+                                                  startPoint,
+                                                  endPoint,
+                                                  errorMsg);
+
+        if (validity.has_value()) {
+            return validity.value();
+        }
+        resetGoalNode(endPoint,
+                      m_grid);
+
+        auto clearanceMap = createClearanceMap(m_traversabilityMap);
+
+        // Node - F value
+        using AStarGridNodeMap = std::vector<std::pair<GridNodePtr, float>>;
+        AStarGridNodeMap unvistedNodes;
+        AStarGridNodeMap vistedNodes;
+        std::deque<Point> traversalOrder;
+
+        const auto firstNode = *findInGridNodeVectorByPoint(m_grid,
+                                                            startPoint).value();
+
+        firstNode->calculateAstarValues(startPoint,
+                                        endPoint,
+                                        m_traversabilityMap);
+        unvistedNodes.push_back(std::make_pair(firstNode,
+                                               firstNode->getF()));
+        traversalOrder.push_back(firstNode->getPoint());
+
+        while (!unvistedNodes.empty()) {
+
+            const auto currentNodePointIt = std::min_element(unvistedNodes.begin(),
+                                                             unvistedNodes.end(),
+                                                             [&](const auto& n1, const auto& n2) {
+                                                                 return n1.second < n2.second;
+                                                             });
+            vistedNodes.push_back(*currentNodePointIt);
+            traversalOrder.push_back(currentNodePointIt->first->getPoint());
+
+            unvistedNodes.erase(currentNodePointIt);
+
+            const auto currentGridNode = vistedNodes.back().first;
+
+            const auto surroundingNodes = getSurroundingPoints(currentGridNode,
+                                                               m_traversabilityMap);
+
+            for (const auto& nodePoint : surroundingNodes) {
+                const auto surroundingNode = *findInGridNodeVectorByPoint(m_grid,
+                                                                          nodePoint).value();
+
+                if (std::find_if(vistedNodes.begin(),
+                                 vistedNodes.end(),
+                                 [&](const auto& n) {
+                                     return n.first == *findInGridNodeVectorByPoint(m_grid,
+                                                                                    nodePoint).value();
+                                 }) != vistedNodes.end()) {
+
+                    continue;
+
+                }
+                else if (std::find_if(unvistedNodes.begin(),
+                    unvistedNodes.end(),
+                    [&](const auto& n) {
+                        return n.first == *findInGridNodeVectorByPoint(m_grid,
+                                                                       nodePoint).value();
+                    }) != unvistedNodes.end()) {
+
+                    if (surroundingNode->getPrecedingNode() != nullptr
+                        && surroundingNode->getF() > currentGridNode->getF()) {
+
+                        surroundingNode->setPrecedingNode(currentGridNode->getPrecedingNode());
+                        continue;
+
+                    }
+
+                }
+                else if (getClearanceValueFromMap(surroundingNode->getPoint(), clearanceMap) >= 1) {
+
+                    surroundingNode->calculateAstarValues(startPoint,
+                                                          endPoint,
+                                                          m_traversabilityMap);
+
+                    unvistedNodes.push_back(std::make_pair(surroundingNode,
+                                                           surroundingNode->getF()));
+
+                    surroundingNode->setPrecedingNode(currentGridNode);
+
+                    // found end node
+                    if (surroundingNode == *findInGridNodeVectorByPoint(m_grid,
+                                                                        endPoint).value()) {
+
+                        goto outsideOfWhile;
+
+                    }
+
+                }
+
+            }
+
+        } outsideOfWhile:;
 
         const GridNodePtr endNode = *findInGridNodeVectorByPoint(m_grid,
                                                                  endPoint).value();

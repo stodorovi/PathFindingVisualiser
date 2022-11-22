@@ -69,6 +69,15 @@ namespace pathAlgs {
         SearchResults findPathAStar(const Point &startPoint,
                                     const Point &endPoint);
 
+        SearchResults findPathHPAStar(const Point& startPoint,
+                                      const Point& endPoint);
+
+
+    private:
+
+        SearchResults annotatedAStar(const Point& startPoint,
+                                     const Point& endPoint);
+
     };
 
 }

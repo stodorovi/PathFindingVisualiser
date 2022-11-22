@@ -7,6 +7,7 @@ namespace pathAlgs {
 
     class GridNode;
 
+    using ClearanceMap = std::vector<std::vector<size_t>>;
     using TraversabilityMap = std::vector<std::vector<bool>>;
     using GridNodePtr       = std::shared_ptr<GridNode>;
     using GridNodeVector    = std::vector<std::vector<GridNodePtr>>;
