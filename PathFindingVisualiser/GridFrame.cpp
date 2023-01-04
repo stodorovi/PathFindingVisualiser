@@ -377,12 +377,6 @@ pathAlgs::Grid::SearchResults GridFrame::findPath() {
                                      m_endPoint);
 
     }
-    else if (algorithm == MainFrameViewConstants::ALGORITHM_HPA_STAR) {
-
-        return m_grid.findPathHPAStar(m_startPoint,
-                                      m_endPoint);
-
-    }
     else {
 
         return pathAlgs::Grid::SearchResults();
